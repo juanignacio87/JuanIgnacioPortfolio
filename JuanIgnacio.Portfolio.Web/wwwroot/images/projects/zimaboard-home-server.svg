@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">ZimaBoard Home Server project placeholder</title>
+  <desc id="desc">Home server and telemetry lab concept with device nodes and sensor signals.</desc>
+  <rect width="1200" height="675" fill="#0f2f2b"/>
+  <g stroke="#5ab9d6" stroke-width="4" opacity=".5" fill="none">
+    <path d="M240 340H520M680 340H960M600 220V120M600 455V555"/>
+    <path d="M350 180L520 290M850 180L680 290M350 500L520 390M850 500L680 390"/>
+  </g>
+  <rect x="475" y="255" width="250" height="170" rx="20" fill="#f7faf8"/>
+  <rect x="515" y="300" width="170" height="24" rx="12" fill="#123f2d"/>
+  <rect x="515" y="354" width="120" height="24" rx="12" fill="#1f6f4b"/>
+  <circle cx="240" cy="340" r="60" fill="#a7e34b"/>
+  <circle cx="960" cy="340" r="60" fill="#5ab9d6"/>
+  <circle cx="600" cy="120" r="46" fill="#d8bc72"/>
+  <circle cx="600" cy="555" r="46" fill="#1f6f4b"/>
+  <text x="76" y="585" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="50" font-weight="850">ZimaBoard Home Server</text>
+  <text x="80" y="628" fill="#d9e3df" font-family="Inter, Arial, sans-serif" font-size="26">Telemetry lab · Docker · edge services</text>
+</svg>

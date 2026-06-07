@@ -1,0 +1,25 @@
+@using JuanIgnacio.Portfolio.Web.Models
+
+<section id="experience" class="content-section section-shell">
+    <div class="section-heading">
+        <p class="section-kicker">05</p>
+        <h2>@Content.ExperienceTitle</h2>
+    </div>
+
+    <div class="timeline">
+        @foreach (var item in Content.Experience)
+        {
+            <article class="timeline-item">
+                <span class="timeline-node"></span>
+                <div>
+                    <h3>@item.Title</h3>
+                    <p>@item.Detail</p>
+                </div>
+            </article>
+        }
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
+}

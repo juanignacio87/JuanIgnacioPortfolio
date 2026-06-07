@@ -1,0 +1,21 @@
+@using JuanIgnacio.Portfolio.Web.Models
+
+<section class="available-section section-shell" aria-labelledby="available-title">
+    <div class="available-panel">
+        <div>
+            <p class="section-kicker">08</p>
+            <h2 id="available-title">@Content.AvailableFor.Title</h2>
+            <p>@Content.AvailableFor.Text</p>
+        </div>
+        <div class="available-list">
+            @foreach (var item in Content.AvailableFor.Items)
+            {
+                <span>@item</span>
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
+}

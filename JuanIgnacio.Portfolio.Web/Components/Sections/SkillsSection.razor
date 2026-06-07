@@ -1,0 +1,27 @@
+@using JuanIgnacio.Portfolio.Web.Models
+
+<section id="skills" class="content-section section-shell">
+    <div class="section-heading">
+        <p class="section-kicker">06</p>
+        <h2>@Content.SkillsTitle</h2>
+    </div>
+
+    <div class="skills-grid">
+        @foreach (var group in Content.SkillGroups)
+        {
+            <article class="skill-group">
+                <h3>@group.Title</h3>
+                <div>
+                    @foreach (var skill in group.Skills)
+                    {
+                        <span>@skill</span>
+                    }
+                </div>
+            </article>
+        }
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
+}

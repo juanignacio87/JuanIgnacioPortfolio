@@ -1,0 +1,23 @@
+@using JuanIgnacio.Portfolio.Web.Models
+
+<section id="goal" class="content-section goal-band">
+    <div class="section-shell goal-layout">
+        <div>
+            <p class="section-kicker">02</p>
+            <h2>@Content.ProfessionalGoal.Title</h2>
+        </div>
+        <div class="goal-content">
+            <p class="lead-text">@Content.ProfessionalGoal.Text</p>
+            <div class="focus-list" aria-label="Professional focus areas">
+                @foreach (var focus in Content.ProfessionalGoal.FocusAreas)
+                {
+                    <span>@focus</span>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
+}

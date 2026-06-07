@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Replace the host in sitemap.xml before publishing if you serve this as a static file.
+Sitemap: https://your-domain.example/sitemap.xml

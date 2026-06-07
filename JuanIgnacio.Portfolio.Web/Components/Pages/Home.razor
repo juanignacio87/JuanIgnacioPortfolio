@@ -1,0 +1,80 @@
+@page "/"
+@rendermode InteractiveServer
+@inject JuanIgnacio.Portfolio.Web.Services.PortfolioContentService ContentService
+@inject Microsoft.Extensions.Options.IOptions<JuanIgnacio.Portfolio.Web.Models.SiteOptions> SiteOptionsAccessor
+
+<PageTitle>@Content.Seo.Title</PageTitle>
+<HeadContent>
+    <meta name="description" content="@Content.Seo.Description" />
+    <meta name="keywords" content="@Content.Seo.Keywords" />
+    <meta name="author" content="@Content.Seo.Author" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="@CanonicalUrl" />
+
+    <meta property="og:title" content="@Content.Seo.SocialTitle" />
+    <meta property="og:description" content="@Content.Seo.SocialDescription" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@CanonicalUrl" />
+    <meta property="og:image" content="@SocialImageUrl" />
+    <meta property="og:locale" content="@OpenGraphLocale" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@Content.Seo.SocialTitle" />
+    <meta name="twitter:description" content="@Content.Seo.SocialDescription" />
+    <meta name="twitter:image" content="@SocialImageUrl" />
+</HeadContent>
+
+<SiteHeader Content="Content"
+            Languages="ContentService.Languages"
+            CurrentLanguage="@currentLanguage"
+            OnLanguageChanged="ChangeLanguage" />
+
+<HeroSection Content="Content" SiteOptions="SiteOptions" />
+<AboutSection Content="Content" />
+<ProfessionalGoalSection Content="Content" />
+<InterestsSection Content="Content" />
+<ProjectsSection Content="Content" />
+<ExperienceSection Content="Content" />
+<SkillsSection Content="Content" />
+<CvDownloadSection Content="Content" SiteOptions="SiteOptions" />
+<AvailableForSection Content="Content" />
+<ContactSection Content="Content" SiteOptions="SiteOptions" />
+
+<footer class="site-footer">
+    <p>@Content.FooterText</p>
+</footer>
+
+@code {
+    private string currentLanguage = "es";
+    private JuanIgnacio.Portfolio.Web.Models.PortfolioContent Content => ContentService.Get(currentLanguage);
+    private JuanIgnacio.Portfolio.Web.Models.SiteOptions SiteOptions => SiteOptionsAccessor.Value;
+    private string CanonicalUrl => ToAbsoluteUrl(SiteOptions.ResolvedPublicUrl);
+    private string SocialImageUrl => ToAbsoluteUrl(SiteOptions.ResolvedSocialImageUrl);
+    private string OpenGraphLocale => currentLanguage switch
+    {
+        "en" => "en_US",
+        "fr" => "fr_FR",
+        _ => "es_ES"
+    };
+
+    private void ChangeLanguage(string languageCode)
+    {
+        currentLanguage = languageCode;
+    }
+
+    private string ToAbsoluteUrl(string pathOrUrl)
+    {
+        if (Uri.TryCreate(pathOrUrl, UriKind.Absolute, out var absoluteUri))
+        {
+            return absoluteUri.ToString();
+        }
+
+        var baseUrl = SiteOptions.ResolvedPublicUrl;
+        if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out var baseUri))
+        {
+            baseUri = new Uri("http://localhost:5100/");
+        }
+
+        return new Uri(baseUri, pathOrUrl.TrimStart('/')).ToString();
+    }
+}

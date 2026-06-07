@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">CattleCat project placeholder</title>
+  <desc id="desc">Livestock inventory dashboard concept with field grid and cattle data cards.</desc>
+  <rect width="1200" height="675" fill="#123f2d"/>
+  <path d="M0 500 C220 430 360 520 560 455 C760 390 900 420 1200 330 L1200 675 L0 675 Z" fill="#1f6f4b"/>
+  <g opacity=".18" stroke="#ffffff" stroke-width="2">
+    <path d="M0 120H1200M0 240H1200M0 360H1200M0 480H1200"/>
+    <path d="M160 0V675M320 0V675M480 0V675M640 0V675M800 0V675M960 0V675"/>
+  </g>
+  <rect x="78" y="72" width="430" height="290" rx="18" fill="#f7faf8"/>
+  <rect x="112" y="112" width="180" height="18" rx="9" fill="#1f6f4b"/>
+  <rect x="112" y="160" width="330" height="36" rx="10" fill="#d9e3df"/>
+  <rect x="112" y="218" width="250" height="36" rx="10" fill="#d9e3df"/>
+  <rect x="112" y="276" width="300" height="36" rx="10" fill="#d9e3df"/>
+  <circle cx="850" cy="250" r="96" fill="#a7e34b"/>
+  <path d="M770 278 C800 225 895 225 930 278" fill="none" stroke="#17211f" stroke-width="22" stroke-linecap="round"/>
+  <circle cx="812" cy="242" r="10" fill="#17211f"/>
+  <circle cx="888" cy="242" r="10" fill="#17211f"/>
+  <text x="78" y="590" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="800">CattleCat</text>
+  <text x="80" y="632" fill="#d9e3df" font-family="Inter, Arial, sans-serif" font-size="26">Livestock inventory system</text>
+</svg>

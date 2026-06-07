@@ -1,0 +1,22 @@
+services:
+  portfolio-web:
+    build:
+      context: .
+      dockerfile: JuanIgnacio.Portfolio.Web/Dockerfile
+    image: juanignacio-portfolio:local
+    container_name: juanignacio-portfolio
+    restart: unless-stopped
+    ports:
+      - "${PORTFOLIO_HTTP_PORT:-8088}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+      ASPNETCORE_URLS: "http://+:8080"
+      Portfolio__Email: "${PORTFOLIO_EMAIL:-}"
+      Portfolio__LinkedInUrl: "${PORTFOLIO_LINKEDIN_URL:-}"
+      Portfolio__GitHubUrl: "${PORTFOLIO_GITHUB_URL:-}"
+      Portfolio__CvUrl: "${PORTFOLIO_CV_URL:-cv/Juan-Ignacio-CV.html}"
+      Portfolio__PublicUrl: "${PORTFOLIO_PUBLIC_URL:-}"
+      Portfolio__SocialImageUrl: "${PORTFOLIO_SOCIAL_IMAGE_URL:-images/social-preview.svg}"
+      Portfolio__ContactFormMode: "${PORTFOLIO_CONTACT_FORM_MODE:-mailto}"
+      Portfolio__ContactApiUrl: "${PORTFOLIO_CONTACT_API_URL:-}"
+      Portfolio__FormspreeUrl: "${PORTFOLIO_FORMSPREE_URL:-}"

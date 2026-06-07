@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Autonomous agricultural robot project placeholder</title>
+  <desc id="desc">Small autonomous agricultural robot concept moving through crop rows with sensors.</desc>
+  <rect width="1200" height="675" fill="#f7faf8"/>
+  <path d="M0 420 C220 360 360 420 520 370 C760 300 960 350 1200 260 L1200 675 L0 675 Z" fill="#d9e3df"/>
+  <g stroke="#1f6f4b" stroke-width="8" opacity=".72">
+    <path d="M90 635L360 330M300 675L560 320M520 675L730 320M750 675L900 320M990 675L1060 330"/>
+  </g>
+  <rect x="430" y="260" width="330" height="150" rx="24" fill="#123f2d"/>
+  <rect x="505" y="210" width="180" height="70" rx="16" fill="#1f6f4b"/>
+  <circle cx="500" cy="425" r="50" fill="#17211f"/>
+  <circle cx="690" cy="425" r="50" fill="#17211f"/>
+  <circle cx="545" cy="305" r="14" fill="#a7e34b"/>
+  <circle cx="650" cy="305" r="14" fill="#a7e34b"/>
+  <path d="M595 210V155" stroke="#17211f" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="595" cy="140" r="22" fill="#5ab9d6"/>
+  <text x="76" y="105" fill="#123f2d" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="850">Autonomous agricultural robot</text>
+  <text x="80" y="150" fill="#66736f" font-family="Inter, Arial, sans-serif" font-size="26">Navigation · sensors · field automation</text>
+</svg>

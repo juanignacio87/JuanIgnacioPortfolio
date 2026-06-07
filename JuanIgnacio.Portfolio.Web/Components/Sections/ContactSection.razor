@@ -1,0 +1,79 @@
+@using JuanIgnacio.Portfolio.Web.Models
+
+<section id="contact" class="content-section contact-band">
+    <div class="section-shell contact-layout">
+        <div>
+            <p class="section-kicker">09</p>
+            <h2>@Content.ContactTitle</h2>
+            <p class="lead-text">@Content.Contact.Intro</p>
+            <div class="contact-links" aria-label="Professional links">
+                @if (!string.IsNullOrWhiteSpace(SiteOptions.Email))
+                {
+                    <a href="@MailtoHref">@Content.Contact.EmailLabel</a>
+                }
+                @if (!string.IsNullOrWhiteSpace(SiteOptions.LinkedInUrl))
+                {
+                    <a href="@SiteOptions.LinkedInUrl" target="_blank" rel="noreferrer">@Content.Contact.LinkedInLabel</a>
+                }
+                @if (!string.IsNullOrWhiteSpace(SiteOptions.GitHubUrl))
+                {
+                    <a href="@SiteOptions.GitHubUrl" target="_blank" rel="noreferrer">@Content.Contact.GitHubLabel</a>
+                }
+                <a href="@SiteOptions.ResolvedCvUrl" download>@Content.Contact.CvLabel</a>
+            </div>
+        </div>
+
+        <form class="contact-form"
+              action="@ContactFormAction"
+              method="@ContactFormMethod"
+              enctype="@ContactFormEncoding"
+              data-contact-mode="@NormalizedContactMode">
+            <label>
+                @Content.Contact.Name
+                <input type="text" name="name" placeholder="Juan Ignacio" autocomplete="name" />
+            </label>
+            <label>
+                @Content.Contact.Email
+                <input type="email" name="email" placeholder="nombre@email.com" autocomplete="email" />
+            </label>
+            <label>
+                @Content.Contact.Message
+                <textarea rows="5" name="message" placeholder="Mensaje"></textarea>
+            </label>
+            <input type="hidden" name="source" value="@SiteOptions.ResolvedPublicUrl" />
+            <button type="submit">@Content.Contact.Send</button>
+            <small>@Content.Contact.FormNote</small>
+            <small class="form-strategy">@FormStrategyText</small>
+        </form>
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
+    [Parameter, EditorRequired] public SiteOptions SiteOptions { get; set; } = default!;
+
+    private string NormalizedContactMode => string.IsNullOrWhiteSpace(SiteOptions.ContactFormMode)
+        ? "mailto"
+        : SiteOptions.ContactFormMode.Trim().ToLowerInvariant();
+
+    private string MailtoHref => string.IsNullOrWhiteSpace(SiteOptions.Email)
+        ? "#contact"
+        : $"mailto:{SiteOptions.Email}";
+
+    private string ContactFormAction => NormalizedContactMode switch
+    {
+        "api" when !string.IsNullOrWhiteSpace(SiteOptions.ContactApiUrl) => SiteOptions.ContactApiUrl,
+        "formspree" when !string.IsNullOrWhiteSpace(SiteOptions.FormspreeUrl) => SiteOptions.FormspreeUrl,
+        _ => MailtoHref
+    };
+
+    private string ContactFormMethod => NormalizedContactMode is "api" or "formspree" ? "post" : "post";
+    private string ContactFormEncoding => NormalizedContactMode == "mailto" ? "text/plain" : "application/x-www-form-urlencoded";
+
+    private string FormStrategyText => NormalizedContactMode switch
+    {
+        "api" => "Preparado para enviar a una API propia mediante POST.",
+        "formspree" => "Preparado para un servicio externo tipo Formspree o Netlify Forms.",
+        _ => "Estrategia actual: mailto. Puede migrarse a API propia o servicio externo."
+    };
+}

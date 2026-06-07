@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Multilingual ecommerce landing project placeholder</title>
+  <desc id="desc">Multilingual ecommerce landing concept for bidet products with cards and language selector.</desc>
+  <rect width="1200" height="675" fill="#eef5f1"/>
+  <rect x="82" y="72" width="1036" height="530" rx="24" fill="#ffffff"/>
+  <rect x="130" y="120" width="250" height="34" rx="17" fill="#123f2d"/>
+  <g fill="#d9e3df">
+    <rect x="820" y="120" width="70" height="30" rx="15"/>
+    <rect x="900" y="120" width="70" height="30" rx="15"/>
+    <rect x="980" y="120" width="70" height="30" rx="15"/>
+  </g>
+  <rect x="130" y="220" width="450" height="64" rx="14" fill="#1f6f4b"/>
+  <rect x="130" y="310" width="360" height="22" rx="11" fill="#66736f" opacity=".45"/>
+  <rect x="130" y="350" width="310" height="22" rx="11" fill="#66736f" opacity=".3"/>
+  <rect x="130" y="430" width="160" height="48" rx="12" fill="#a7e34b"/>
+  <rect x="700" y="210" width="260" height="260" rx="42" fill="#f7faf8" stroke="#d9e3df" stroke-width="8"/>
+  <path d="M760 335 C800 270 880 270 920 335 C900 405 780 405 760 335Z" fill="#5ab9d6"/>
+  <text x="130" y="560" fill="#123f2d" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="850">Multilingual ecommerce landing</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Juan Ignacio favicon</title>
+  <rect width="64" height="64" rx="12" fill="#123f2d"/>
+  <path d="M8 46 C20 38 28 48 40 38 C48 32 55 34 64 28 L64 64 L8 64 Z" fill="#1f6f4b"/>
+  <path d="M18 17H28V43C28 49 24 53 18 53C15 53 12 52 10 50L13 42C14 43 16 44 18 44C20 44 21 42 21 39V17Z" fill="#ffffff"/>
+  <path d="M36 17H46V50H36V17Z" fill="#a7e34b"/>
+  <circle cx="46" cy="14" r="5" fill="#5ab9d6"/>
+</svg>

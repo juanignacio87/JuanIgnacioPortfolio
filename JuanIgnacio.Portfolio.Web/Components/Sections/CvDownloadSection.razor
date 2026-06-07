@@ -1,0 +1,27 @@
+@using JuanIgnacio.Portfolio.Web.Models
+
+<section id="cv" class="content-section section-shell cv-section">
+    <div class="cv-panel">
+        <div>
+            <p class="section-kicker">07</p>
+            <h2>@Content.CvDownload.Title</h2>
+            <p class="lead-text">@Content.CvDownload.Text</p>
+            <div class="cv-includes">
+                @foreach (var item in Content.CvDownload.Includes)
+                {
+                    <span>@item</span>
+                }
+            </div>
+        </div>
+        <div class="cv-action-card">
+            <span class="document-icon" aria-hidden="true">CV</span>
+            <p>@Content.CvDownload.SecondaryText</p>
+            <a class="button primary" href="@SiteOptions.ResolvedCvUrl" download>@Content.CvDownload.PrimaryAction</a>
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
+    [Parameter, EditorRequired] public SiteOptions SiteOptions { get; set; } = default!;
+}

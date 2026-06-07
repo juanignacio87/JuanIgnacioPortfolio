@@ -1,0 +1,13 @@
+@using JuanIgnacio.Portfolio.Web.Models
+
+<section id="about" class="content-section section-shell two-column">
+    <div>
+        <p class="section-kicker">01</p>
+        <h2>@Content.AboutTitle</h2>
+    </div>
+    <p class="lead-text">@Content.AboutText</p>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
+}

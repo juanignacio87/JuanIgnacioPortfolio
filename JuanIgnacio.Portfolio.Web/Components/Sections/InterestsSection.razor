@@ -1,0 +1,23 @@
+@using JuanIgnacio.Portfolio.Web.Models
+
+<section id="interests" class="content-section section-shell">
+    <div class="section-heading">
+        <p class="section-kicker">03</p>
+        <h2>@Content.InterestsTitle</h2>
+    </div>
+
+    <div class="interest-grid">
+        @foreach (var interest in Content.Interests)
+        {
+            <article class="info-card">
+                <span class="card-accent"></span>
+                <h3>@interest.Title</h3>
+                <p>@interest.Description</p>
+            </article>
+        }
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
+}
