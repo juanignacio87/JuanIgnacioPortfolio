@@ -1,5 +1,10 @@
 # Juan Ignacio Portfolio
 
+El rediseño Campo tecnologico y sus instrucciones actualizadas estan en
+`../REDESIGN-NOTES.md`. El contacto ahora usa enlaces directos y los datos
+faltantes se indican como pendientes; la configuracion de formulario se conserva
+para una futura integracion. La imagen social predeterminada es PNG.
+
 Landing personal desarrollada con Blazor Server en .NET 8.
 
 ## Ejecutar en local

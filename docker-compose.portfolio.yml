@@ -16,7 +16,7 @@ services:
       Portfolio__GitHubUrl: "${PORTFOLIO_GITHUB_URL:-}"
       Portfolio__CvUrl: "${PORTFOLIO_CV_URL:-cv/Juan-Ignacio-CV.html}"
       Portfolio__PublicUrl: "${PORTFOLIO_PUBLIC_URL:-}"
-      Portfolio__SocialImageUrl: "${PORTFOLIO_SOCIAL_IMAGE_URL:-images/social-preview.svg}"
+      Portfolio__SocialImageUrl: "${PORTFOLIO_SOCIAL_IMAGE_URL:-images/social-preview.png}"
       Portfolio__ContactFormMode: "${PORTFOLIO_CONTACT_FORM_MODE:-mailto}"
       Portfolio__ContactApiUrl: "${PORTFOLIO_CONTACT_API_URL:-}"
       Portfolio__FormspreeUrl: "${PORTFOLIO_FORMSPREE_URL:-}"

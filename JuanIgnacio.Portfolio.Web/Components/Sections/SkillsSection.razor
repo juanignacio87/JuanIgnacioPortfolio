@@ -1,27 +1,7 @@
 @using JuanIgnacio.Portfolio.Web.Models
-
-<section id="skills" class="content-section section-shell">
-    <div class="section-heading">
-        <p class="section-kicker">06</p>
-        <h2>@Content.SkillsTitle</h2>
-    </div>
-
-    <div class="skills-grid">
-        @foreach (var group in Content.SkillGroups)
-        {
-            <article class="skill-group">
-                <h3>@group.Title</h3>
-                <div>
-                    @foreach (var skill in group.Skills)
-                    {
-                        <span>@skill</span>
-                    }
-                </div>
-            </article>
-        }
-    </div>
-</section>
-
-@code {
-    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
-}
+<section id="skills" class="technology-band content-section" aria-labelledby="skills-title"><div class="section-shell">
+    <div class="section-heading"><p class="section-kicker">04 / @Content.Nav.Skills</p><h2 id="skills-title">@Content.SkillsTitle</h2></div>
+    <div class="skills-grid">@foreach(var group in Content.SkillGroups.Take(4)){<div class="skill-group"><h3>@group.Title</h3><TechBadges Technologies="group.Skills" /></div>}</div>
+    <div class="languages-row"><h3>@Content.Visual.LanguagesTitle</h3><ul>@foreach(var language in Content.SkillGroups.Last().Skills){<li>@language</li>}</ul></div>
+</div></section>
+@code { [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!; }

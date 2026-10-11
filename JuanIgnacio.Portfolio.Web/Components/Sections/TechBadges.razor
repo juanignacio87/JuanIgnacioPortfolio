@@ -1,0 +1,2 @@
+<ul class="tech-list">@foreach(var technology in Technologies){<li>@technology</li>}</ul>
+@code { [Parameter] public IReadOnlyList<string> Technologies { get; set; } = []; }

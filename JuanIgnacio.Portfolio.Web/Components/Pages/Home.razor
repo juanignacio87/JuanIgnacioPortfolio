@@ -2,6 +2,8 @@
 @rendermode InteractiveServer
 @inject JuanIgnacio.Portfolio.Web.Services.PortfolioContentService ContentService
 @inject Microsoft.Extensions.Options.IOptions<JuanIgnacio.Portfolio.Web.Models.SiteOptions> SiteOptionsAccessor
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
 
 <PageTitle>@Content.Seo.Title</PageTitle>
 <HeadContent>
@@ -29,26 +31,24 @@
             CurrentLanguage="@currentLanguage"
             OnLanguageChanged="ChangeLanguage" />
 
+<main id="main-content" lang="@currentLanguage">
 <HeroSection Content="Content" SiteOptions="SiteOptions" />
 <AboutSection Content="Content" />
-<ProfessionalGoalSection Content="Content" />
-<InterestsSection Content="Content" />
-<ProjectsSection Content="Content" />
+<ProjectsSection Content="Content" SiteOptions="SiteOptions" />
 <ExperienceSection Content="Content" />
 <SkillsSection Content="Content" />
-<CvDownloadSection Content="Content" SiteOptions="SiteOptions" />
-<AvailableForSection Content="Content" />
 <ContactSection Content="Content" SiteOptions="SiteOptions" />
+</main>
 
 <footer class="site-footer">
-    <p>@Content.FooterText</p>
+    <div class="section-shell"><p>@Content.FooterText</p><a href="#top">@Content.Visual.Home <span aria-hidden="true">↑</span></a></div>
 </footer>
 
 @code {
     private string currentLanguage = "es";
     private JuanIgnacio.Portfolio.Web.Models.PortfolioContent Content => ContentService.Get(currentLanguage);
     private JuanIgnacio.Portfolio.Web.Models.SiteOptions SiteOptions => SiteOptionsAccessor.Value;
-    private string CanonicalUrl => ToAbsoluteUrl(SiteOptions.ResolvedPublicUrl);
+    private string CanonicalUrl => string.IsNullOrWhiteSpace(SiteOptions.PublicUrl) ? Navigation.BaseUri : SiteOptions.PublicUrl.TrimEnd('/') + "/";
     private string SocialImageUrl => ToAbsoluteUrl(SiteOptions.ResolvedSocialImageUrl);
     private string OpenGraphLocale => currentLanguage switch
     {
@@ -57,9 +57,20 @@
         _ => "es_ES"
     };
 
-    private void ChangeLanguage(string languageCode)
+    private async Task ChangeLanguage(string languageCode)
     {
-        currentLanguage = languageCode;
+        currentLanguage = ContentService.Languages.Any(l => l.Code == languageCode) ? languageCode : "es";
+        await JS.InvokeVoidAsync("portfolioLanguage.set", currentLanguage);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var savedLanguage = await JS.InvokeAsync<string?>("portfolioLanguage.get");
+            if (savedLanguage is not null) await ChangeLanguage(savedLanguage);
+            StateHasChanged();
+        }
     }
 
     private string ToAbsoluteUrl(string pathOrUrl)
@@ -69,7 +80,7 @@
             return absoluteUri.ToString();
         }
 
-        var baseUrl = SiteOptions.ResolvedPublicUrl;
+        var baseUrl = CanonicalUrl;
         if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out var baseUri))
         {
             baseUri = new Uri("http://localhost:5100/");

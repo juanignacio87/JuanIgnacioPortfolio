@@ -1,44 +1,31 @@
 @using JuanIgnacio.Portfolio.Web.Models
-
-<header class="site-header">
-    <a class="brand" href="#top" aria-label="Juan Ignacio">
-        <span class="brand-mark">JI</span>
-        <span>Juan Ignacio</span>
-    </a>
-
-    <nav class="main-nav" aria-label="Primary navigation">
-        <a href="#about">@Content.Nav.About</a>
-        <a href="#goal">@Content.Nav.Goal</a>
-        <a href="#interests">@Content.Nav.Interests</a>
-        <a href="#projects">@Content.Nav.Projects</a>
-        <a href="#experience">@Content.Nav.Experience</a>
-        <a href="#skills">@Content.Nav.Skills</a>
-        <a href="#cv">@Content.Nav.Cv</a>
-        <a href="#contact">@Content.Nav.Contact</a>
-    </nav>
-
-    <div class="language-switcher" aria-label="Language selector">
-        @foreach (var language in Languages)
-        {
-            <button type="button"
-                    class="@GetLanguageButtonClass(language.Code)"
-                    aria-pressed="@(language.Code == CurrentLanguage)"
-                    title="@language.NativeLabel"
-                    @onclick="() => OnLanguageChanged.InvokeAsync(language.Code)">
-                @language.Label
-            </button>
-        }
+<a class="skip-link" href="#main-content">@Content.Visual.Skip</a>
+<header class="site-header" @onkeydown="HandleKey">
+    <div class="header-inner section-shell">
+        <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">JI<span>.</span></span><span>Juan Ignacio<small>Bastonero</small></span></a>
+        <button class="menu-toggle" type="button" aria-label="@Content.Visual.Menu" aria-expanded="@menuOpen.ToString().ToLowerInvariant()" aria-controls="primary-nav" @onclick="() => menuOpen = !menuOpen"><Icon Name="menu" /></button>
+        <nav id="primary-nav" class="main-nav @(menuOpen ? "open" : "")" aria-label="@Content.Visual.Navigation">
+            <a href="#top" @onclick="CloseMenu">@Content.Visual.Home</a>
+            <a href="#about" @onclick="CloseMenu">@Content.Nav.About</a>
+            <a href="#projects" @onclick="CloseMenu">@Content.Nav.Projects</a>
+            <a href="#experience" @onclick="CloseMenu">@Content.Nav.Experience</a>
+            <a href="#skills" @onclick="CloseMenu">@Content.Nav.Skills</a>
+            <a href="#contact" @onclick="CloseMenu">@Content.Nav.Contact</a>
+        </nav>
+        <div class="language-switcher" role="group" aria-label="@Content.Visual.Languages">
+            @foreach (var language in Languages)
+            {
+                <button type="button" lang="@language.Code" class="@(language.Code == CurrentLanguage ? "active" : "")" aria-pressed="@((language.Code == CurrentLanguage).ToString().ToLowerInvariant())" title="@language.NativeLabel" @onclick="() => OnLanguageChanged.InvokeAsync(language.Code)">@language.Label</button>
+            }
+        </div>
     </div>
 </header>
-
 @code {
     [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
-    [Parameter, EditorRequired] public IReadOnlyList<LanguageOption> Languages { get; set; } = [];
-    [Parameter, EditorRequired] public string CurrentLanguage { get; set; } = "es";
-    [Parameter, EditorRequired] public EventCallback<string> OnLanguageChanged { get; set; }
-
-    private string GetLanguageButtonClass(string languageCode)
-    {
-        return languageCode == CurrentLanguage ? "active" : string.Empty;
-    }
+    [Parameter] public IReadOnlyList<LanguageOption> Languages { get; set; } = [];
+    [Parameter] public string CurrentLanguage { get; set; } = "es";
+    [Parameter] public EventCallback<string> OnLanguageChanged { get; set; }
+    private bool menuOpen;
+    private void CloseMenu() => menuOpen = false;
+    private void HandleKey(KeyboardEventArgs args) { if(args.Key == "Escape") CloseMenu(); }
 }

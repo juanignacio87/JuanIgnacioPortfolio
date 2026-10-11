@@ -1,0 +1,36 @@
+@using JuanIgnacio.Portfolio.Web.Models
+<article class="project-card">
+    @if (!string.IsNullOrWhiteSpace(Project.ImageUrl))
+    {
+        <img class="project-image" src="@Project.ImageUrl" alt="@Project.ImageAlt" loading="lazy" />
+    }
+    <div class="project-card-heading">
+        <span class="project-symbol" aria-hidden="true"><Icon Name="@Symbol" /></span>
+        <span class="status">@Project.Status</span>
+    </div>
+    <h4>@Project.Title</h4>
+    <p>@Project.Description</p>
+    <TechBadges Technologies="Project.Technologies" />
+    <details>
+        <summary>@Project.MoreLabel <Icon Name="arrow-up-right" /></summary>
+        <dl>
+            <dt>@Labels.Problem</dt><dd>@Project.Problem</dd>
+            <dt>@Labels.Role</dt><dd>@Project.Role</dd>
+            <dt>@Labels.NextStep</dt><dd>@Project.NextStep</dd>
+        </dl>
+    </details>
+    @if (!string.IsNullOrWhiteSpace(Project.ProjectUrl))
+    {
+        <a class="text-link" href="@Project.ProjectUrl" target="_blank" rel="noopener noreferrer">@Labels.ViewProject <Icon Name="arrow-up-right" /></a>
+    }
+    @if (!string.IsNullOrWhiteSpace(Project.RepositoryUrl))
+    {
+        <a class="text-link" href="@Project.RepositoryUrl" target="_blank" rel="noopener noreferrer">@Labels.ViewRepository <Icon Name="arrow-up-right" /></a>
+    }
+</article>
+@code {
+    [Parameter, EditorRequired] public ProjectItem Project { get; set; } = default!;
+    [Parameter, EditorRequired] public ProjectLabels Labels { get; set; } = default!;
+    [Parameter] public int Index { get; set; }
+    private string Symbol => Index switch { 1 => "trophy", 2 => "radio", 3 => "layers", _ => "scan-eye" };
+}

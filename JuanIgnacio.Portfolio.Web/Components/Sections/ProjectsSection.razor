@@ -1,88 +1,30 @@
 @using JuanIgnacio.Portfolio.Web.Models
-
-<section id="projects" class="content-section projects-band">
-    <div class="section-shell">
-        <div class="section-heading">
-            <p class="section-kicker">04</p>
-            <h2>@Content.ProjectsTitle</h2>
-            <p>@Content.ProjectsIntro</p>
-        </div>
-
-        <div class="project-grid">
-            @foreach (var project in Content.Projects)
+<section id="projects" class="projects-band content-section" aria-labelledby="projects-title">
+<div class="section-shell">
+    <div class="section-heading"><p class="section-kicker">02 / @Content.Nav.Projects</p><h2 id="projects-title">@Content.ProjectsTitle</h2><p>@Content.ProjectsIntro</p></div>
+    @{ var featured = Content.Projects[0]; }
+    <article class="featured-project">
+        <div class="featured-summary"><p class="section-kicker">@Content.Visual.FeaturedLabel</p><div class="featured-name"><h3>CattleCat<span>.</span></h3><span class="status functional">@featured.Status</span></div><p class="featured-intro">@Content.Featured.Intro</p><p>@featured.Description</p><TechBadges Technologies="featured.Technologies" /><dl class="featured-role"><dt>@Content.ProjectLabels.Role</dt><dd>@featured.Role</dd></dl><a class="button primary" href="@featured.RepositoryUrl" target="_blank" rel="noopener noreferrer">@Content.ProjectLabels.ViewRepository <Icon Name="arrow-up-right" /></a></div>
+        <div class="featured-features"><ul>@foreach(var feature in Content.Featured.Features){<li><Icon Name="check" /><span>@feature</span></li>}</ul><div class="next-step"><span>@Content.ProjectLabels.NextStep</span><p>@featured.NextStep</p></div></div>
+        <div class="project-gallery"><h4>@Content.Featured.GalleryTitle</h4>
+            @if (SiteOptions.CattleCatScreenshots.Any(s => !string.IsNullOrWhiteSpace(s.Url)))
             {
-                <article class="project-card">
-                    <div class="project-media">
-                        @if (!string.IsNullOrWhiteSpace(project.ImageUrl))
-                        {
-                            <img src="@project.ImageUrl" alt="@project.ImageAlt" loading="lazy" />
-                        }
-                        else
-                        {
-                            <div class="project-media-placeholder" role="img" aria-label="@Content.ProjectLabels.ImagePlaceholder">
-                                <span class="placeholder-icon" aria-hidden="true">@GetProjectInitials(project.Title)</span>
-                                <strong>@Content.ProjectLabels.ImagePlaceholder</strong>
-                            </div>
-                        }
-                    </div>
-
-                    <div class="project-card-body">
-                        <div class="project-card-header">
-                            <h3>@project.Title</h3>
-                            <span>@Content.ProjectLabels.Status: @project.Status</span>
-                        </div>
-                        <p>@project.Description</p>
-                        <dl class="project-details">
-                            <div>
-                                <dt>@Content.ProjectLabels.Problem</dt>
-                                <dd>@project.Problem</dd>
-                            </div>
-                            <div>
-                                <dt>@Content.ProjectLabels.Role</dt>
-                                <dd>@project.Role</dd>
-                            </div>
-                            <div>
-                                <dt>@Content.ProjectLabels.NextStep</dt>
-                                <dd>@project.NextStep</dd>
-                            </div>
-                        </dl>
-                    </div>
-
-                    <div class="project-card-footer">
-                        <p class="tech-label">@Content.ProjectLabels.Technologies</p>
-                        <div class="tech-list">
-                            @foreach (var technology in project.Technologies)
-                            {
-                                <span>@technology</span>
-                            }
-                        </div>
-
-                        @if (!string.IsNullOrWhiteSpace(project.ProjectUrl) || !string.IsNullOrWhiteSpace(project.RepositoryUrl))
-                        {
-                            <div class="project-actions">
-                                @if (!string.IsNullOrWhiteSpace(project.ProjectUrl))
-                                {
-                                    <a class="button primary" href="@project.ProjectUrl" target="_blank" rel="noreferrer">@Content.ProjectLabels.ViewProject</a>
-                                }
-                                @if (!string.IsNullOrWhiteSpace(project.RepositoryUrl))
-                                {
-                                    <a class="button ghost" href="@project.RepositoryUrl" target="_blank" rel="noreferrer">@Content.ProjectLabels.ViewRepository</a>
-                                }
-                            </div>
-                        }
-                    </div>
-                </article>
+                <div class="gallery-grid">@foreach (var shot in SiteOptions.CattleCatScreenshots.Where(s => !string.IsNullOrWhiteSpace(s.Url))){<a href="@shot.Url" target="_blank" rel="noopener noreferrer"><img src="@shot.Url" alt="@shot.GetAlt(Content.LanguageCode)" loading="lazy" /><span>@shot.GetAlt(Content.LanguageCode) <Icon Name="arrow-up-right" /></span></a>}</div>
             }
+            else
+            {<div class="gallery-pending"><Icon Name="image" /><p>@Content.Visual.GalleryPending</p></div>}
         </div>
+    </article>
+    <h3 class="other-title">@Content.Visual.OtherProjects</h3>
+    <div class="project-grid">
+        @foreach (var project in Content.Projects.Skip(1))
+        {
+            <ProjectCard Project="project" Labels="Content.ProjectLabels" Index="@(Content.Projects.ToList().IndexOf(project))" />
+        }
     </div>
+</div>
 </section>
-
 @code {
     [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
-
-    private static string GetProjectInitials(string title)
-    {
-        var words = title.Split(new[] { ' ', '/', '-' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-        return string.Concat(words.Take(2).Select(word => char.ToUpperInvariant(word[0])));
-    }
+    [Parameter, EditorRequired] public SiteOptions SiteOptions { get; set; } = default!;
 }

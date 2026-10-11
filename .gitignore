@@ -15,3 +15,11 @@ DockerDesktop.vhdx
 appsettings.Local.json
 appsettings.*.Local.json
 artifacts/
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~

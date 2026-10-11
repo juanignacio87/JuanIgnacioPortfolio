@@ -1,5 +1,13 @@
 # Juan Ignacio Portfolio
 
+## Propuesta visual Campo tecnologico
+
+Ver [guia del rediseño](REDESIGN-NOTES.md) para contenido, capturas reales,
+contactos, CV, assets y checklist actualizado. El nuevo contacto usa enlaces
+directos, no el formulario de demostracion descrito en la documentacion historica.
+Los contactos no configurados y el CV provisional se indican como pendientes.
+La imagen social por defecto ahora es `images/social-preview.png` (fuente SVG v2).
+
 Landing personal desarrollada con Blazor Server en .NET 8.
 
 ## Ejecutar en local

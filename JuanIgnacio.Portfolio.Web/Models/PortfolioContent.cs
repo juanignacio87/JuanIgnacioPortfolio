@@ -111,4 +111,15 @@ public sealed record PortfolioContent(
     AvailableForContent AvailableFor,
     string ContactTitle,
     ContactLabels Contact,
-    string FooterText);
+    string FooterText)
+{
+    public VisualContent Visual { get; init; } = default!;
+    public FeaturedContent Featured { get; init; } = default!;
+}
+
+public sealed record VisualContent(string Home, string Skip, string Navigation, string Languages,
+    string Menu, string FieldCaption, string FieldLabel, string FieldData, string ProfileIntro,
+    string FeaturedLabel, string OtherProjects, string Pending, string CvPending, string GalleryPending,
+    string LanguagesTitle, string ContactKicker, string FooterNote);
+
+public sealed record FeaturedContent(string Intro, IReadOnlyList<string> Features, string GalleryTitle);

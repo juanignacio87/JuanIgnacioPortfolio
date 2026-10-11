@@ -1,0 +1,4 @@
+@using JuanIgnacio.Portfolio.Web.Models
+@if (SiteOptions.HasCv){<a class="button secondary" href="@SiteOptions.ResolvedCvUrl" download>@Content.Hero.Ctas.Cv <Icon Name="download" /></a>}
+else {<a class="button secondary" href="#cv">@Content.Hero.Ctas.Cv <Icon Name="download" /><small>@Content.Visual.CvPending</small></a>}
+@code { [Parameter] public PortfolioContent Content { get; set; } = default!; [Parameter] public SiteOptions SiteOptions { get; set; } = default!; }

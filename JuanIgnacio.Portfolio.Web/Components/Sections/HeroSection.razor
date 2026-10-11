@@ -1,39 +1,23 @@
 @using JuanIgnacio.Portfolio.Web.Models
-
-<section id="top" class="hero section-shell">
-    <div class="hero-content">
-        <p class="eyebrow">@Content.Hero.Eyebrow</p>
-        <h1>@Content.Hero.Name</h1>
-        <p class="hero-tagline">@Content.Hero.Tagline</p>
-        <p class="hero-summary">@Content.Hero.Summary</p>
-        <div class="hero-highlights" aria-label="Profile highlights">
-            @foreach (var highlight in Content.Hero.Highlights)
-            {
-                <span>@highlight</span>
-            }
+<section id="top" class="hero" aria-labelledby="hero-title">
+    <div class="hero-photo" aria-hidden="true"></div>
+    <div class="hero-survey" aria-hidden="true"><span class="survey-point p1"></span><span class="survey-point p2"></span><span class="survey-point p3"></span></div>
+    <div class="section-shell hero-inner">
+        <div class="hero-content">
+            <p class="eyebrow"><span></span>@Content.Hero.Eyebrow</p>
+            <h1 id="hero-title">Juan Ignacio<br /><span>Bastonero</span><span class="name-dot">.</span></h1>
+            <p class="hero-tagline">@Content.Hero.Tagline</p>
+            <p class="hero-summary">@Content.Hero.Summary</p>
+            <div class="hero-actions">
+                <a class="button primary" href="#projects">@Content.Hero.Ctas.Projects <Icon Name="arrow-up-right" /></a>
+                <CvLink Content="Content" SiteOptions="SiteOptions" />
+            </div>
+            <div class="hero-social"><ProfessionalLink Label="GitHub" Url="@SiteOptions.GitHubUrl" Pending="@Content.Visual.Pending" /><ProfessionalLink Label="LinkedIn" Url="@SiteOptions.LinkedInUrl" Pending="@Content.Visual.Pending" /></div>
         </div>
-        <div class="hero-actions">
-            <a class="button primary" href="#projects">@Content.Hero.Ctas.Projects</a>
-            <a class="button secondary" href="@SiteOptions.ResolvedCvUrl" download>@Content.Hero.Ctas.Cv</a>
-            <a class="button ghost" href="#contact">@Content.Hero.Ctas.Contact</a>
-        </div>
-    </div>
-
-    <div class="hero-panel" aria-label="Agrotech profile highlights">
-        <div class="field-grid">
-            @for (var index = 0; index < 12; index++)
-            {
-                <span></span>
-            }
-        </div>
-        <div class="signal-card">
-            <span class="signal-dot"></span>
-            <strong>Field intelligence stack</strong>
-            <small>C# / .NET · IoT · Python · Data · Automation</small>
-        </div>
+        <div class="field-caption"><span class="crosshair" aria-hidden="true">+</span><div><span>@Content.Visual.FieldLabel</span><strong>@Content.Visual.FieldData</strong></div><span class="field-index">01 / AGRO 4.0</span></div>
     </div>
 </section>
-
+<div class="discipline-band"><div class="section-shell"><span>@Content.Hero.Highlights[0]</span><span aria-hidden="true">+</span><span>@Content.Hero.Highlights[1]</span><span aria-hidden="true">+</span><span>@Content.Hero.Highlights[2]</span><span class="discipline-end">AGRO 4.0 <Icon Name="sprout" /></span></div></div>
 @code {
     [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
     [Parameter, EditorRequired] public SiteOptions SiteOptions { get; set; } = default!;

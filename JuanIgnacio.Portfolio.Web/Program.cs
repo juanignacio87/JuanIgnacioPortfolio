@@ -37,7 +37,7 @@ app.Use(async (context, next) =>
     if (context.Request.Path.Equals("/robots.txt", StringComparison.OrdinalIgnoreCase))
     {
         var options = context.RequestServices.GetRequiredService<IOptions<SiteOptions>>();
-        var publicUrl = ResolvePublicUrl(options.Value);
+        var publicUrl = ResolvePublicUrl(options.Value, context);
         var body = $"""
 User-agent: *
 Allow: /
@@ -53,14 +53,12 @@ Sitemap: {publicUrl}sitemap.xml
     if (context.Request.Path.Equals("/sitemap.xml", StringComparison.OrdinalIgnoreCase))
     {
         var options = context.RequestServices.GetRequiredService<IOptions<SiteOptions>>();
-        var publicUrl = ResolvePublicUrl(options.Value);
-        var lastModified = DateTimeOffset.UtcNow.ToString("yyyy-MM-dd");
+        var publicUrl = ResolvePublicUrl(options.Value, context);
         var body = $"""
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>{WebUtility.HtmlEncode(publicUrl)}</loc>
-    <lastmod>{lastModified}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -83,10 +81,10 @@ app.MapRazorComponents<App>()
 
 app.Run();
 
-static string ResolvePublicUrl(SiteOptions options)
+static string ResolvePublicUrl(SiteOptions options, HttpContext context)
 {
     var publicUrl = string.IsNullOrWhiteSpace(options.PublicUrl)
-        ? "https://your-domain.example/"
+        ? $"{context.Request.Scheme}://{context.Request.Host}{context.Request.PathBase}/"
         : options.PublicUrl.Trim();
 
     return publicUrl.EndsWith('/') ? publicUrl : $"{publicUrl}/";
