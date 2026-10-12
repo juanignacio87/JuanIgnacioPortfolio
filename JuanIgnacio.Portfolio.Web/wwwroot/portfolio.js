@@ -3,9 +3,17 @@ window.portfolioLanguage = {
     get() {
         try { return localStorage.getItem('portfolio.language'); } catch { return null; }
     },
-    set(language) {
+    set(language, messages) {
         document.documentElement.lang = language;
         try { localStorage.setItem('portfolio.language', language); } catch { /* Private browsing. */ }
+        if (messages) {
+            const error = document.querySelector('[data-portfolio-error]');
+            const reload = document.querySelector('[data-portfolio-reload]');
+            const dismiss = document.querySelector('[data-portfolio-dismiss]');
+            if (error) error.textContent = messages.error;
+            if (reload) reload.textContent = messages.reload;
+            if (dismiss) dismiss.setAttribute('aria-label', messages.dismiss);
+        }
     }
 };
 

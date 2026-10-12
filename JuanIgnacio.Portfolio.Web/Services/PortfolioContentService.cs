@@ -5,8 +5,9 @@ namespace JuanIgnacio.Portfolio.Web.Services;
 // Copy is centralised here; technical identifiers are shared between languages.
 public sealed class PortfolioContentService
 {
-    public IReadOnlyList<LanguageOption> Languages { get; } = [new("es", "ES", "Español"), new("en", "EN", "English"), new("fr", "FR", "Français")];
-    public PortfolioContent Get(string code) => code switch { "en" => English, "fr" => French, _ => Spanish };
+    public IReadOnlyList<LanguageOption> Languages { get; } =
+        [new("es", "ES", "Español"), new("it", "IT", "Italiano"), new("en", "EN", "English"), new("fr", "FR", "Français")];
+    public PortfolioContent Get(string code) => code switch { "it" => Italian, "en" => English, "fr" => French, _ => Spanish };
     private static ProjectItem Cattle(string description, string role, string status, string next) => new("CattleCat", description, "", ["C#", "WPF", "Entity Framework 6", "SQL Server"], role, status, next, "", RepositoryUrl: "https://github.com/juanignacio87/CattleCat", Stage: ProjectStage.Published);
 
     private static PortfolioContent Spanish => new("es",
@@ -31,12 +32,128 @@ public sealed class PortfolioContentService
         "Conversemos sobre el próximo desafío.", new("Busco oportunidades en Agrotech y equipos que conecten conocimiento del campo con software, datos y automatización. También estoy abierto al networking y a conversaciones técnicas en EIMA, Bologna.", "Nombre", "Correo", "Mensaje", "Enviar", "Correo", "LinkedIn", "GitHub", "Descargar CV", "Contacto pendiente de configuración."),
         "Juan Ignacio Bastonero · Agronegocios + Software + Agro 4.0")
     {
+        Messages = new("No se pudo completar la solicitud", "Ocurrió un error. Recargá la página para volver a intentarlo.", "Recargar", "Cerrar aviso", "ID de la solicitud"),
         Visual = new("Inicio", "Saltar al contenido", "Navegación principal", "Idioma", "Abrir navegación", "Campo tecnológico", "DEL LOTE AL DATO", "Software / Sensores / Decisiones", "PERFIL HÍBRIDO", "PROYECTO DESTACADO", "Otras líneas de trabajo", "Por configurar", "CV pendiente", "Capturas reales pendientes. No se muestran imágenes simuladas de la aplicación.", "Idiomas", "CONECTEMOS", "Una perspectiva internacional. Un propósito conectado al campo."),
         Featured = new("Inventario ganadero, con lógica de campo.", ["Gestión de establecimientos, lotes, usuarios y movimientos ganaderos.", "Stock por establecimiento, lote y categoría.", "Búsqueda y exportación CSV.", "Validación para impedir operaciones que generen stock negativo.", "Edición y desactivación lógica de registros."], "La aplicación, por dentro")
     };
 
+    private static PortfolioContent Italian => Spanish with
+    {
+        LanguageCode = "it",
+        Seo = new(
+            "Juan Ignacio Bastonero | Agribusiness, sviluppo software e Agricoltura 4.0",
+            "Esperienza nelle aziende agricole, sviluppo software, dati e IoT. Il portfolio Agrotech di Juan Ignacio Bastonero: CattleCat e tecnologie applicate all'agricoltura.",
+            "Agrotech, Agricoltura 4.0, agribusiness, sviluppo software, C#, IoT, agricoltura di precisione",
+            "Juan Ignacio Bastonero",
+            "Juan Ignacio Bastonero · Agricoltura e tecnologia",
+            "agribusiness, sviluppo software e Agricoltura 4.0. L'esperienza sul campo incontra la tecnologia."),
+        Nav = new("Profilo", "Obiettivo", "Ambiti", "Progetti", "Esperienza", "Tecnologie", "CV", "Contatti"),
+        Hero = new(
+            "Juan Ignacio Bastonero",
+            "Agribusiness + Sviluppo software + Agricoltura 4.0",
+            "ESPERIENZA SUL CAMPO. APPROCCIO TECNOLOGICO.",
+            "Unisco l'esperienza pratica nelle aziende agricole a software, dati e IoT per affrontare le esigenze concrete del settore.",
+            ["Agribusiness", "Software", "Dati e IoT"],
+            new("Scopri i progetti", "Scarica il CV", "Contattami")),
+        AboutTitle = "Dal campo al codice.",
+        AboutText = "Sono un tecnico specializzato in agribusiness, con una formazione in gestione agroalimentare e attualmente iscritto al Master Agro 4.0. L'esperienza pratica nelle aziende agricole mi aiuta a comprendere i processi e le esigenze operative prima di scegliere la tecnologia. Oggi sto orientando il mio percorso professionale verso l'Agrotech, integrando questa conoscenza del settore con lo sviluppo software, i dati e i sistemi connessi.",
+        ProfessionalGoal = new(
+            "Obiettivo professionale",
+            "Cerco opportunità in team che sviluppano tecnologie utili al settore agroalimentare: software gestionali, IoT agricolo, agricoltura di precisione e automazione. Sono interessato a opportunità lavorative, scambi tecnici e collaborazioni internazionali.",
+            ["Agrotech", "Software .NET", "IoT agricolo"]),
+        InterestsTitle = "Ambiti di interesse",
+        Interests = [],
+        ProjectsTitle = "Tecnologia con solide radici nel campo.",
+        ProjectsIntro = "Progetti personali e ambiti di lavoro che collegano gestione, sviluppo software e agricoltura di precisione.",
+        ProjectLabels = new("La sfida", "Tecnologie", "Il mio contributo", "Stato", "Prossimo passo", "Scopri il progetto", "Vedi il repository", "Materiale visivo da aggiungere"),
+        Projects =
+        [
+            Cattle(
+                "Un'applicazione desktop per la gestione degli allevamenti bovini, delle consistenze e dei movimenti, con regole operative chiare.",
+                "Sviluppo dell'applicazione, modello dei dati e logica di gestione delle consistenze.",
+                "Operativo",
+                "Documentare i casi d'uso e pubblicare schermate reali.") with
+            {
+                MoreLabel = "Dettagli",
+                ImageAlt = "CattleCat: applicazione per la gestione delle consistenze e dei movimenti bovini"
+            },
+            new("RegionalLeagueApp",
+                "Piattaforma web per organizzare campionati regionali, squadre, partite e risultati.",
+                "Riunire le informazioni delle competizioni in un unico sistema.",
+                ["C#", "Blazor", "PostgreSQL", "Docker"],
+                "Sviluppo software e modellazione del dominio.",
+                "In sviluppo",
+                "Validare i flussi di gestione e completare la documentazione.",
+                "Dettagli",
+                ImageAlt: "RegionalLeagueApp: piattaforma per la gestione dei campionati regionali",
+                Stage: ProjectStage.InDevelopment),
+            new("NodoAgrícola",
+                "Un progetto allo studio per collegare i sensori di campo all'archiviazione e alla visualizzazione dei dati.",
+                "Raccogliere misurazioni utili direttamente sul campo.",
+                ["Raspberry Pi", "ESP32", "IoT", "Python"],
+                "Esplorazione dell'architettura e dei componenti.",
+                "Concettuale",
+                "Definire il primo caso d'uso e validare un nodo di misura.",
+                "Dettagli",
+                ImageAlt: "NodoAgrícola: progetto di monitoraggio con sensori agricoli"),
+            new("Telerilevamento e agricoltura di precisione",
+                "Lavori formativi su immagini satellitari, indici di vegetazione e analisi spaziale degli appezzamenti.",
+                "Interpretare la variabilità all'interno degli appezzamenti.",
+                ["Sentinel-2", "NDVI", "GIS", "Python"],
+                "Analisi e applicazione pratica delle competenze acquisite.",
+                "Progetto formativo",
+                "Selezionare e documentare un lavoro da pubblicare.",
+                "Dettagli",
+                ImageAlt: "Telerilevamento: analisi degli appezzamenti con immagini satellitari",
+                Stage: ProjectStage.Coursework),
+            new("Visione artificiale e salute bovina",
+                "Un'idea per esplorare l'uso delle immagini nell'osservazione sanitaria dei bovini. Non è uno strumento diagnostico.",
+                "Individuare segnali visivi da sottoporre a una valutazione professionale.",
+                ["Python", "Computer vision", "Machine learning"],
+                "Definizione del problema e valutazione della fattibilità.",
+                "Concettuale",
+                "Definire i dati, i criteri di validazione e la collaborazione veterinaria.",
+                "Dettagli",
+                ImageAlt: "Visione artificiale e salute bovina: progetto concettuale")
+        ],
+        ExperienceTitle = "Un percorso che unisce discipline diverse.",
+        Experience =
+        [
+            new("Tecnico specializzato in agribusiness", "Formazione in produzione, gestione e commercializzazione nel settore agricolo e zootecnico."),
+            new("Gestione agroalimentare", "Formazione universitaria sulle filiere agroalimentari, i processi e la qualità. Tesi ancora da completare."),
+            new("Esperienza pratica nelle aziende agricole", "Esperienza lavorativa in aziende agricole e partecipazione diretta alle attività operative quotidiane."),
+            new("Esperienza internazionale", "Adattamento a contesti diversi, comunicazione multilingue e assistenza ai clienti."),
+            new("Master Agro 4.0 · In corso", "Agricoltura di precisione, telerilevamento e digitalizzazione del settore agricolo."),
+            new("Sviluppo tecnologico · In corso", "Progetti personali con C#/.NET ed esplorazione di dati, IoT e automazione.")
+        ],
+        SkillsTitle = "Strumenti per connettere campo e tecnologia.",
+        SkillGroups =
+        [
+            new("Sviluppo software", ["C#", ".NET", "WPF", "Blazor", "Entity Framework", "LINQ"]),
+            new("Dati e infrastruttura", ["SQL Server", "PostgreSQL", "Python", "Docker"]),
+            new("Hardware connesso", ["Raspberry Pi", "ESP32", "IoT"]),
+            new("Agricoltura di precisione", ["Sentinel-2", "NDVI", "GIS"]),
+            new("Lingue", ["Spagnolo · Madrelingua", "Italiano · Fluente", "Francese · B2–C1", "Inglese · C1"])
+        ],
+        CvDownload = new("CV", "Formazione, esperienza e progetti in un unico documento.", "Scarica il CV", "CV in PDF in attesa di pubblicazione.", []),
+        AvailableFor = new("Disponibile per", "Una prospettiva agricola all'interno di un team tecnologico.", ["Agrotech", "Backend .NET", "IoT", "Automazione", "Collaborazione tecnica"]),
+        ContactTitle = "Parliamo della prossima sfida.",
+        Contact = new("Cerco opportunità in Agrotech e team che uniscano la conoscenza del settore agricolo a software, dati e automazione. Sono aperto anche a incontri professionali e scambi tecnici in occasione di EIMA a Bologna.", "Nome", "E-mail", "Messaggio", "Invia", "E-mail", "LinkedIn", "GitHub", "Scarica il CV", "Contatti da configurare."),
+        FooterText = "Juan Ignacio Bastonero · Agribusiness + Software + Agricoltura 4.0",
+        Visual = new("Inizio", "Vai al contenuto", "Navigazione principale", "Lingua", "Apri il menu", "Agricoltura e tecnologia", "DALL'APPEZZAMENTO AL DATO", "Software / Sensori / Decisioni", "UN PROFILO IBRIDO", "PROGETTO IN EVIDENZA", "Altri ambiti di lavoro", "Da configurare", "CV da aggiungere", "Schermate reali da aggiungere. Non vengono mostrate immagini simulate dell'applicazione.", "Lingue", "RESTIAMO IN CONTATTO", "Una prospettiva internazionale. Un obiettivo radicato nel mondo agricolo."),
+        Featured = new("Gestione delle consistenze bovine, progettata sulle esigenze delle aziende agricole.",
+            ["Gestione di aziende agricole, appezzamenti, utenti e movimenti dei bovini.",
+             "Consistenze per azienda agricola, appezzamento e categoria.",
+             "Ricerca ed esportazione CSV.",
+             "Controlli per impedire operazioni che generino consistenze negative.",
+             "Modifica e disattivazione logica delle registrazioni."],
+            "Uno sguardo all'applicazione"),
+        Messages = new("Impossibile completare la richiesta", "Si è verificato un errore. Ricarica la pagina per riprovare.", "Ricarica", "Chiudi l'avviso", "ID della richiesta")
+    };
+
     private static PortfolioContent English => Spanish with
     {
+        Messages = new("The request could not be completed", "An error occurred. Reload the page to try again.", "Reload", "Dismiss notice", "Request ID"),
         LanguageCode = "en", Seo = new("Juan Ignacio Bastonero | Agribusiness, software & Agriculture 4.0", "Connecting hands-on farming experience with software, data and IoT. Juan Ignacio Bastonero's portfolio: CattleCat and technology for agriculture.", "Agrotech, Agriculture 4.0, C#, IoT", "Juan Ignacio Bastonero", "Juan Ignacio Bastonero · Connected agriculture", "Agribusiness, software development and Agriculture 4.0. Field experience meets technology."),
         Nav = new("Profile", "Goal", "Focus", "Projects", "Experience", "Technologies", "CV", "Contact"),
         Hero = new("Juan Ignacio Bastonero", "Agribusiness + Software development + Agriculture 4.0", "FIELD EXPERIENCE. A TECHNOLOGY MINDSET.", "I connect hands-on farming experience with software, data and IoT to tackle real agricultural challenges.", ["Agribusiness", "Software", "Data & IoT"], new("View projects", "Download CV", "Contact")),
@@ -55,6 +172,7 @@ public sealed class PortfolioContentService
 
     private static PortfolioContent French => Spanish with
     {
+        Messages = new("La demande n'a pas pu être traitée", "Une erreur est survenue. Rechargez la page pour réessayer.", "Recharger", "Fermer le message", "Identifiant de la demande"),
         LanguageCode = "fr", Seo = new("Juan Ignacio Bastonero | Agribusiness, logiciel et Agriculture 4.0", "Relier l'expérience agricole de terrain au logiciel, aux données et à l'IoT. Portfolio de Juan Ignacio Bastonero : CattleCat et technologies pour l'agriculture.", "Agrotech, Agriculture 4.0, C#, IoT", "Juan Ignacio Bastonero", "Juan Ignacio Bastonero · Agriculture connectée", "Agribusiness, développement logiciel et Agriculture 4.0. Une expérience de terrain, une approche technologique."),
         Nav = new("Profil", "Objectif", "Domaines", "Projets", "Parcours", "Technologies", "CV", "Contact"),
         Hero = new("Juan Ignacio Bastonero", "Agribusiness + Développement logiciel + Agriculture 4.0", "L'EXPÉRIENCE DU TERRAIN. UNE APPROCHE TECHNOLOGIQUE.", "Je relie mon expérience pratique en agriculture au logiciel, aux données et à l'IoT pour répondre aux besoins concrets du terrain.", ["Agribusiness", "Logiciel", "Données et IoT"], new("Voir les projets", "Télécharger le CV", "Contacter")),

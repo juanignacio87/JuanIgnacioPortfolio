@@ -27,5 +27,7 @@ public sealed class ProjectScreenshot
 {
     public string Url { get; set; } = string.Empty;
     public Dictionary<string, string> Alt { get; set; } = [];
-    public string GetAlt(string language) => Alt.GetValueOrDefault(language) ?? Alt.GetValueOrDefault("es") ?? "CattleCat";
+    public string GetAlt(string language) => Alt.TryGetValue(language, out var alt) && !string.IsNullOrWhiteSpace(alt)
+        ? alt
+        : "CattleCat";
 }

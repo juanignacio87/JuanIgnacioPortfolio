@@ -18,12 +18,14 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="@CanonicalUrl" />
     <meta property="og:image" content="@SocialImageUrl" />
+    <meta property="og:image:alt" content="@Content.Seo.SocialTitle" />
     <meta property="og:locale" content="@OpenGraphLocale" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="@Content.Seo.SocialTitle" />
     <meta name="twitter:description" content="@Content.Seo.SocialDescription" />
     <meta name="twitter:image" content="@SocialImageUrl" />
+    <meta name="twitter:image:alt" content="@Content.Seo.SocialTitle" />
 </HeadContent>
 
 <SiteHeader Content="Content"
@@ -52,6 +54,7 @@
     private string SocialImageUrl => ToAbsoluteUrl(SiteOptions.ResolvedSocialImageUrl);
     private string OpenGraphLocale => currentLanguage switch
     {
+        "it" => "it_IT",
         "en" => "en_US",
         "fr" => "fr_FR",
         _ => "es_ES"
@@ -60,7 +63,7 @@
     private async Task ChangeLanguage(string languageCode)
     {
         currentLanguage = ContentService.Languages.Any(l => l.Code == languageCode) ? languageCode : "es";
-        await JS.InvokeVoidAsync("portfolioLanguage.set", currentLanguage);
+        await JS.InvokeVoidAsync("portfolioLanguage.set", currentLanguage, Content.Messages);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -68,7 +71,7 @@
         if (firstRender)
         {
             var savedLanguage = await JS.InvokeAsync<string?>("portfolioLanguage.get");
-            if (savedLanguage is not null) await ChangeLanguage(savedLanguage);
+            await ChangeLanguage(savedLanguage ?? "es");
             StateHasChanged();
         }
     }

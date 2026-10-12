@@ -1,11 +1,16 @@
 @inherits LayoutComponentBase
+@inject JuanIgnacio.Portfolio.Web.Services.PortfolioContentService ContentService
 
 <div class="app-shell">
     @Body
 </div>
 
-<div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">x</a>
+<div id="blazor-error-ui" role="alert">
+    <span data-portfolio-error>@Messages.Error</span>
+    <a href="" class="reload" data-portfolio-reload>@Messages.Reload</a>
+    <button type="button" class="dismiss" aria-label="@Messages.Dismiss" data-portfolio-dismiss>x</button>
 </div>
+
+@code {
+    private JuanIgnacio.Portfolio.Web.Models.InterfaceMessages Messages => ContentService.Get("es").Messages;
+}
