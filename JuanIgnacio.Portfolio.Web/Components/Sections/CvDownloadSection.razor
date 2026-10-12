@@ -16,7 +16,7 @@
         <div class="cv-action-card">
             <span class="document-icon" aria-hidden="true">CV</span>
             <p>@Content.CvDownload.SecondaryText</p>
-            <a class="button primary" href="@SiteOptions.ResolvedCvUrl" download>@Content.CvDownload.PrimaryAction</a>
+            <CvLink Content="Content" SiteOptions="SiteOptions" />
         </div>
     </div>
 </section>

@@ -10,7 +10,7 @@
             <p class="hero-summary">@Content.Hero.Summary</p>
             <div class="hero-actions">
                 <a class="button primary" href="#projects">@Content.Hero.Ctas.Projects <Icon Name="arrow-up-right" /></a>
-                <CvLink Content="Content" SiteOptions="SiteOptions" />
+                <a class="button secondary" href="#cv">@Content.Nav.Cv</a>
             </div>
             @if (!string.IsNullOrWhiteSpace(SiteOptions.GitHubUrl) || !string.IsNullOrWhiteSpace(SiteOptions.LinkedInUrl))
             {

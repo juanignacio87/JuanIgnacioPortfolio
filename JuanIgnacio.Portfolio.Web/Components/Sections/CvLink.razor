@@ -1,4 +1,17 @@
 @using JuanIgnacio.Portfolio.Web.Models
-@if (SiteOptions.HasCv){<a class="button secondary" href="@SiteOptions.ResolvedCvUrl" download>@Content.Hero.Ctas.Cv <Icon Name="download" /></a>}
-else {<a class="button secondary" href="#cv">@Content.Hero.Ctas.Cv <Icon Name="download" /><small>@Content.Visual.CvPending</small></a>}
-@code { [Parameter] public PortfolioContent Content { get; set; } = default!; [Parameter] public SiteOptions SiteOptions { get; set; } = default!; }
+@inject JuanIgnacio.Portfolio.Web.Services.CvAvailabilityService CvAvailability
+@{ var file = CvAvailability.GetAvailableFile(SiteOptions, Content.LanguageCode); }
+@if (file is not null)
+{
+    <a class="button secondary" href="@file.Url" download="@file.FileName">@Content.CvDownload.PrimaryAction <Icon Name="download" /></a>
+}
+else
+{
+    <button class="button secondary" type="button" disabled aria-describedby="@descriptionId">@Content.CvDownload.PrimaryAction <Icon Name="download" /><small>@Content.Visual.CvPending</small></button>
+}
+<small id="@descriptionId">@(file is not null ? Content.CvDownload.Text : Content.CvDownload.SecondaryText)</small>
+@code {
+    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
+    [Parameter, EditorRequired] public SiteOptions SiteOptions { get; set; } = default!;
+    private readonly string descriptionId = $"cv-description-{Guid.NewGuid():N}";
+}

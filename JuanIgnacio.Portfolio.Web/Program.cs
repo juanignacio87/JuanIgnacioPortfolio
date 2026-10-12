@@ -14,6 +14,7 @@ builder.Logging.AddDebug();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddSingleton<PortfolioContentService>();
+builder.Services.AddSingleton<CvAvailabilityService>();
 builder.Services.Configure<SiteOptions>(
     builder.Configuration.GetSection(SiteOptions.SectionName));
 

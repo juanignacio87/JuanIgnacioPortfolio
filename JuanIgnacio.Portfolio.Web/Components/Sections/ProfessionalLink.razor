@@ -1,11 +1,12 @@
 @if (!string.IsNullOrWhiteSpace(Url))
 {
     <a class="professional-link" href="@Url" target="@(Url.StartsWith("mailto:") ? null : "_blank")" rel="noopener noreferrer">
-        <span>@Label</span><Icon Name="arrow-up-right" />
+        <span class="professional-link-text">@Label@if (!string.IsNullOrWhiteSpace(Detail)){<small>@Detail</small>}</span><Icon Name="arrow-up-right" />
     </a>
 }
 @code {
     [Parameter] public string Label { get; set; } = "";
+    [Parameter] public string Detail { get; set; } = "";
     [Parameter] public string Url { get; set; } = "";
     [Parameter] public string Pending { get; set; } = "";
 }

@@ -765,6 +765,9 @@ ul,ol {
   border-bottom:1px solid #517461;
   padding:18px 0;
   font-size:16px}
+.professional-link-text { min-width:0; }
+.contact-directory .professional-link-text small { display:block; margin-top:4px; color:#e1eddc; font-size:14px; overflow-wrap:anywhere; }
+.contact-cv .button:disabled { cursor:not-allowed; opacity:.8; }
 .contact-directory .unconfigured small {
   color:#d2e1c9;
   font-size:10px}

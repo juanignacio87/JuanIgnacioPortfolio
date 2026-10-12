@@ -11,10 +11,9 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Production"
       ASPNETCORE_URLS: "http://+:8080"
-      Portfolio__Email: "${PORTFOLIO_EMAIL:-}"
-      Portfolio__LinkedInUrl: "${PORTFOLIO_LINKEDIN_URL:-}"
-      Portfolio__GitHubUrl: "${PORTFOLIO_GITHUB_URL:-}"
-      Portfolio__CvUrl: "${PORTFOLIO_CV_URL:-cv/Juan-Ignacio-CV.html}"
+      Portfolio__Email: "${PORTFOLIO_EMAIL:-juanbastonero@gmail.com}"
+      Portfolio__LinkedInUrl: "${PORTFOLIO_LINKEDIN_URL:-https://www.linkedin.com/in/juan-ignacio-bastonero-4219b959/}"
+      Portfolio__GitHubUrl: "${PORTFOLIO_GITHUB_URL:-https://github.com/juanignacio87}"
       Portfolio__PublicUrl: "${PORTFOLIO_PUBLIC_URL:-}"
       Portfolio__SocialImageUrl: "${PORTFOLIO_SOCIAL_IMAGE_URL:-images/social-preview.png}"
       Portfolio__ContactFormMode: "${PORTFOLIO_CONTACT_FORM_MODE:-mailto}"

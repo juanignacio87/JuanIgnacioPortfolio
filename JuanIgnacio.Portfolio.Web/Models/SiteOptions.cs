@@ -7,7 +7,13 @@ public sealed class SiteOptions
     public string Email { get; set; } = string.Empty;
     public string LinkedInUrl { get; set; } = string.Empty;
     public string GitHubUrl { get; set; } = string.Empty;
-    public string CvUrl { get; set; } = "cv/Juan-Ignacio-CV.html";
+    public Dictionary<string, string> CvFiles { get; set; } = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["es"] = "/cv/Juan_Ignacio_Bastonero_CV_ES.pdf",
+        ["it"] = "/cv/Juan_Ignacio_Bastonero_CV_IT.pdf",
+        ["en"] = "/cv/Juan_Ignacio_Bastonero_CV_EN.pdf",
+        ["fr"] = "/cv/Juan_Ignacio_Bastonero_CV_FR.pdf"
+    };
     public string PublicUrl { get; set; } = string.Empty;
     public string SocialImageUrl { get; set; } = "images/social-preview.png";
     public string ContactFormMode { get; set; } = "mailto";
@@ -15,10 +21,6 @@ public sealed class SiteOptions
     public string FormspreeUrl { get; set; } = string.Empty;
     public List<ProjectScreenshot> CattleCatScreenshots { get; set; } = [];
 
-    public bool HasCv => !string.IsNullOrWhiteSpace(CvUrl) &&
-        !CvUrl.EndsWith("Juan-Ignacio-CV.html", StringComparison.OrdinalIgnoreCase);
-
-    public string ResolvedCvUrl => string.IsNullOrWhiteSpace(CvUrl) ? "cv/Juan-Ignacio-CV.html" : CvUrl;
     public string ResolvedPublicUrl => string.IsNullOrWhiteSpace(PublicUrl) ? "/" : PublicUrl;
     public string ResolvedSocialImageUrl => string.IsNullOrWhiteSpace(SocialImageUrl) ? "images/social-preview.png" : SocialImageUrl;
 }

@@ -5,7 +5,7 @@
 Ver [guia del rediseño](REDESIGN-NOTES.md) para contenido, capturas reales,
 contactos, CV, assets y checklist actualizado. El nuevo contacto usa enlaces
 directos, no el formulario de demostracion descrito en la documentacion historica.
-Los contactos no configurados y el CV provisional se indican como pendientes.
+Los contactos publicos estan configurados. El CV sigue pendiente por idioma hasta incorporar los PDF finales.
 La imagen social por defecto ahora es `images/social-preview.png` (fuente SVG v2).
 
 Landing personal desarrollada con Blazor Server en .NET 8.
@@ -34,7 +34,10 @@ Variables soportadas:
 Portfolio__Email
 Portfolio__LinkedInUrl
 Portfolio__GitHubUrl
-Portfolio__CvUrl
+Portfolio__CvFiles__es
+Portfolio__CvFiles__it
+Portfolio__CvFiles__en
+Portfolio__CvFiles__fr
 Portfolio__PublicUrl
 Portfolio__SocialImageUrl
 Portfolio__ContactFormMode
@@ -260,7 +263,7 @@ Opciones si se quiere GitHub Pages:
 - Colocar email real en `Portfolio__Email` o `PORTFOLIO_EMAIL`.
 - Colocar LinkedIn real en `Portfolio__LinkedInUrl` o `PORTFOLIO_LINKEDIN_URL`.
 - Colocar GitHub real en `Portfolio__GitHubUrl` o `PORTFOLIO_GITHUB_URL`.
-- Reemplazar el CV temporal por el PDF final y ajustar `Portfolio__CvUrl` si cambia el nombre.
+- Incorporar los cuatro PDF finales siguiendo la configuracion `Portfolio:CvFiles`.
 - Reemplazar placeholders por screenshots reales en `wwwroot/images/projects/`.
 - Definir dominio final.
 - Configurar `Portfolio__PublicUrl` con la URL publica definitiva.
@@ -268,3 +271,26 @@ Opciones si se quiere GitHub Pages:
 - Probar compose: `docker compose --env-file JuanIgnacio.Portfolio.Web\.env.example -f docker-compose.portfolio.yml up --build`.
 - Revisar SEO social en una herramienta de preview antes de compartir.
 - Publicar.
+
+## CV por idioma
+
+Hay un unico control de descarga en Contacto. La portada enlaza a ese bloque.
+Las etiquetas usan el idioma activo ES/IT/EN/FR y `download` conserva el nombre del archivo.
+
+Agregar los archivos definitivos dentro de `JuanIgnacio.Portfolio.Web/wwwroot/cv/`:
+
+- `Juan_Ignacio_Bastonero_CV_ES.pdf`
+- `Juan_Ignacio_Bastonero_CV_IT.pdf`
+- `Juan_Ignacio_Bastonero_CV_EN.pdf`
+- `Juan_Ignacio_Bastonero_CV_FR.pdf`
+
+Las rutas estan en `appsettings.json > Portfolio:CvFiles`. Solo se admiten PDF locales
+dentro de `/cv/`; no se utiliza el antiguo `Portfolio__CvUrl` ni el HTML provisional.
+La disponibilidad se consulta al renderizar: al agregar un PDF real, no vacio, se habilita
+para su idioma al recargar la pagina o cambiar de idioma. Los otros idiomas siguen pendientes.
+No es necesario modificar componentes ni activar una bandera. En Docker, reconstruir y
+publicar la imagen que incorpora los PDF, o montar los archivos en el directorio `wwwroot/cv`.
+
+Los datos de contacto proporcionados estan en `appsettings.json`; Development y Production
+los heredan. Las variables de entorno pueden sobrescribirlos. Los ejemplos `.env` conservan
+datos ficticios: no usar sus contactos de ejemplo para la publicacion real.

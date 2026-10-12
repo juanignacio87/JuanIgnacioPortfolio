@@ -12,12 +12,11 @@
             <TechBadges Technologies="Content.AvailableFor.Items" />
         </div>
         <div class="contact-directory">
-            <ProfessionalLink Label="@Content.Contact.EmailLabel" Url="@EmailUrl" Pending="@Content.Visual.Pending" />
-            <ProfessionalLink Label="LinkedIn" Url="@SiteOptions.LinkedInUrl" Pending="@Content.Visual.Pending" />
-            <ProfessionalLink Label="GitHub" Url="@SiteOptions.GitHubUrl" Pending="@Content.Visual.Pending" />
+            <ProfessionalLink Label="@Content.Contact.EmailLabel" Detail="@SiteOptions.Email" Url="@EmailUrl" />
+            <ProfessionalLink Label="@Content.Contact.LinkedInLabel" Url="@SiteOptions.LinkedInUrl" />
+            <ProfessionalLink Label="@Content.Contact.GitHubLabel" Url="@SiteOptions.GitHubUrl" />
             <div id="cv" class="contact-cv">
                 <CvLink Content="Content" SiteOptions="SiteOptions" />
-                <small>@(SiteOptions.HasCv ? Content.CvDownload.Text : Content.CvDownload.SecondaryText)</small>
             </div>
         </div>
     </div>
