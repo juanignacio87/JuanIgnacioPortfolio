@@ -26,7 +26,11 @@ public sealed class SiteOptions
 public sealed class ProjectScreenshot
 {
     public string Url { get; set; } = string.Empty;
+    public Dictionary<string, string> Title { get; set; } = [];
     public Dictionary<string, string> Alt { get; set; } = [];
+    public string GetTitle(string language) => Title.TryGetValue(language, out var title) && !string.IsNullOrWhiteSpace(title)
+        ? title
+        : "CattleCat";
     public string GetAlt(string language) => Alt.TryGetValue(language, out var alt) && !string.IsNullOrWhiteSpace(alt)
         ? alt
         : "CattleCat";

@@ -9,7 +9,7 @@
         <div class="project-gallery"><h4>@Content.Featured.GalleryTitle</h4>
             @if (SiteOptions.CattleCatScreenshots.Any(s => !string.IsNullOrWhiteSpace(s.Url)))
             {
-                <div class="gallery-grid">@foreach (var shot in SiteOptions.CattleCatScreenshots.Where(s => !string.IsNullOrWhiteSpace(s.Url))){<a href="@shot.Url" target="_blank" rel="noopener noreferrer"><img src="@shot.Url" alt="@shot.GetAlt(Content.LanguageCode)" loading="lazy" /><span>@shot.GetAlt(Content.LanguageCode) <Icon Name="arrow-up-right" /></span></a>}</div>
+                <ScreenshotGallery Screenshots="SiteOptions.CattleCatScreenshots" Language="@Content.LanguageCode" Labels="Content.Gallery" Title="@Content.Featured.GalleryTitle" />
             }
             else
             {<div class="gallery-pending"><Icon Name="image" /><p>@Content.Visual.GalleryPending</p></div>}

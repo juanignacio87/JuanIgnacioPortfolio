@@ -28,6 +28,21 @@ Los modos de formulario anteriores se conservan en configuracion para una futura
 
 ## Capturas reales de CattleCat
 
+La galeria ya incluye siete capturas originales revisadas de `docs/screenshots`
+de CattleCat. Se copiaron sin recortar, recomprimir ni modificar sus bytes a
+`wwwroot/images/projects/cattlecat/01-inicio.png` hasta `07-validacion-stock.png`.
+El repositorio CattleCat no se modifica ni se ejecuta desde el portfolio.
+Los titulos y alt ES/IT/EN/FR estan centralizados en
+`appsettings.json > Portfolio:CattleCatScreenshots`. Los textos de controles
+del visor se encuentran en `PortfolioContentService.Gallery` por idioma.
+
+El componente `ScreenshotGallery` presenta una imagen principal y miniaturas.
+El visor usa `<dialog>` nativo sin dependencias externas: Escape cierra,
+las flechas navegan, Tab queda dentro del modal y al cerrar se restaura el foco.
+El fondo no se desplaza durante la apertura. Las imagenes conservan su contenido
+completo con `object-fit: contain`; las miniaturas usan `loading="lazy"`.
+En movil se usa una tira horizontal compacta de miniaturas.
+
 Guardar imagenes anonimizadas en `wwwroot/images/projects/cattlecat/`.
 Configurar `Portfolio:CattleCatScreenshots` en appsettings o variables de entorno:
 
@@ -35,6 +50,12 @@ Configurar `Portfolio:CattleCatScreenshots` en appsettings o variables de entorn
 "CattleCatScreenshots": [
   {
     "Url": "images/projects/cattlecat/inventario.png",
+    "Title": {
+      "es": "Inventario bovino",
+      "it": "Consistenze bovine",
+      "en": "Livestock inventory",
+      "fr": "Stocks bovins"
+    },
     "Alt": {
       "es": "CattleCat: inventario por establecimiento y categoria",
       "it": "CattleCat: consistenze per azienda agricola e categoria",
@@ -46,7 +67,7 @@ Configurar `Portfolio:CattleCatScreenshots` en appsettings o variables de entorn
 ```
 
 No agregar esa entrada hasta que exista el archivo. Cada imagen se abre en tamaño
-completo; incluir textos alternativos en los cuatro idiomas. Quitar nombres de
+completo en el visor; incluir titulos y textos alternativos en los cuatro idiomas. Quitar nombres de
 usuarios, establecimientos, rutas de disco y datos productivos privados.
 En Docker puede configurarse `Portfolio__CattleCatScreenshots__0__Url` y
 `Portfolio__CattleCatScreenshots__0__Alt__es` (tambien `it`, `en` y `fr`).

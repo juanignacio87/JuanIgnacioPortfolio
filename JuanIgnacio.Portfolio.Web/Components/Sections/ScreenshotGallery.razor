@@ -1,0 +1,104 @@
+@using JuanIgnacio.Portfolio.Web.Models
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+@if (images.Length > 0)
+{
+    <div class="screenshot-gallery" @ref="galleryElement">
+        <button class="gallery-main" type="button" @ref="mainButton" @onclick="OpenViewer"
+                aria-haspopup="dialog" aria-controls="@dialogId" aria-label="@($"{Labels.Open}: {Current.GetTitle(Language)}")" title="@Labels.Open">
+            <img src="@Current.Url" alt="@Current.GetAlt(Language)" loading="eager" />
+            <span class="gallery-zoom" aria-hidden="true"><Icon Name="maximize-2" /></span>
+        </button>
+        <div class="gallery-caption" role="status" aria-live="polite" aria-atomic="true" aria-label="@Announcement">
+            <strong>@Caption</strong>
+        </div>
+        <div class="gallery-thumbnails" role="group" aria-label="@Labels.Select">
+            @for (var i = 0; i < images.Length; i++)
+            {
+                var index = i;
+                var shot = images[index];
+                <button type="button" class="gallery-thumb @(index == selectedIndex ? "selected" : "")" data-index="@index"
+                        @onclick="() => Select(index)" title="@shot.GetTitle(Language)"
+                        aria-label="@($"{Labels.Select}: {shot.GetTitle(Language)}")" aria-pressed="@((index == selectedIndex).ToString().ToLowerInvariant())">
+                    <img src="@shot.Url" alt="@shot.GetAlt(Language)" loading="lazy" />
+                </button>
+            }
+        </div>
+
+        <dialog id="@dialogId" class="screenshot-dialog" @ref="dialogElement" aria-labelledby="@dialogTitleId">
+            <div class="viewer-header">
+                <h2 id="@dialogTitleId">@Title</h2>
+                <button type="button" class="viewer-button" data-gallery-close @onclick="CloseViewer" aria-label="@Labels.Close" title="@Labels.Close"><Icon Name="x" /></button>
+            </div>
+            <div class="viewer-image"><img src="@Current.Url" alt="@Current.GetAlt(Language)" loading="lazy" /></div>
+            <div class="viewer-footer">
+                <button type="button" class="viewer-button" @onclick="() => SelectRelative(-1)" aria-label="@Labels.Previous" title="@Labels.Previous"><Icon Name="chevron-left" /></button>
+                <div class="viewer-caption" role="status" aria-live="polite" aria-atomic="true" aria-label="@Announcement">
+                    <strong>@Caption</strong>
+                </div>
+                <button type="button" class="viewer-button" @onclick="() => SelectRelative(1)" aria-label="@Labels.Next" title="@Labels.Next"><Icon Name="chevron-right" /></button>
+            </div>
+        </dialog>
+    </div>
+}
+
+@code {
+    [Parameter, EditorRequired] public IReadOnlyList<ProjectScreenshot> Screenshots { get; set; } = [];
+    [Parameter, EditorRequired] public GalleryLabels Labels { get; set; } = default!;
+    [Parameter] public string Language { get; set; } = "es";
+    [Parameter] public string Title { get; set; } = "CattleCat";
+
+    private readonly string dialogId = $"screenshot-viewer-{Guid.NewGuid():N}";
+    private readonly string dialogTitleId = $"screenshot-viewer-title-{Guid.NewGuid():N}";
+    private ProjectScreenshot[] images = [];
+    private int selectedIndex;
+    private bool initialized;
+    private bool revealSelection;
+    private ElementReference galleryElement, mainButton, dialogElement;
+    private DotNetObjectReference<ScreenshotGallery>? reference;
+    private ProjectScreenshot Current => images[selectedIndex];
+    private string Caption => $"{selectedIndex + 1} / {images.Length} · {Current.GetTitle(Language)}";
+    private string Announcement => string.Format(System.Globalization.CultureInfo.InvariantCulture, Labels.Counter, selectedIndex + 1, images.Length, Current.GetTitle(Language));
+
+    protected override void OnParametersSet()
+    {
+        images = Screenshots.Where(s => !string.IsNullOrWhiteSpace(s.Url)).ToArray();
+        selectedIndex = Math.Clamp(selectedIndex, 0, Math.Max(0, images.Length - 1));
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (images.Length == 0) return;
+        if (!initialized)
+        {
+            reference = DotNetObjectReference.Create(this);
+            await JS.InvokeVoidAsync("portfolioGallery.init", dialogElement, reference);
+            initialized = true;
+        }
+        if (revealSelection)
+        {
+            revealSelection = false;
+            await JS.InvokeVoidAsync("portfolioGallery.reveal", galleryElement, selectedIndex);
+        }
+    }
+
+    private void Select(int index) { selectedIndex = index; revealSelection = true; }
+    private void SelectRelative(int offset) => Select((selectedIndex + offset + images.Length) % images.Length);
+    private Task OpenViewer() => JS.InvokeVoidAsync("portfolioGallery.open", dialogElement, mainButton).AsTask();
+    private Task CloseViewer() => JS.InvokeVoidAsync("portfolioGallery.close", dialogElement).AsTask();
+
+    [JSInvokable]
+    public Task Navigate(int offset) => InvokeAsync(() => { SelectRelative(offset); StateHasChanged(); });
+
+    public async ValueTask DisposeAsync()
+    {
+        if (initialized)
+        {
+            try { await JS.InvokeVoidAsync("portfolioGallery.dispose", dialogElement); }
+            catch (JSDisconnectedException) { }
+            catch (TaskCanceledException) { }
+        }
+        reference?.Dispose();
+    }
+}

@@ -119,6 +119,7 @@ public sealed record PortfolioContent(
     public VisualContent Visual { get; init; } = default!;
     public FeaturedContent Featured { get; init; } = default!;
     public InterfaceMessages Messages { get; init; } = default!;
+    public GalleryLabels Gallery { get; init; } = default!;
 }
 
 public sealed record VisualContent(string Home, string Skip, string Navigation, string Languages,
@@ -129,3 +130,5 @@ public sealed record VisualContent(string Home, string Skip, string Navigation, 
 public sealed record FeaturedContent(string Intro, IReadOnlyList<string> Features, string GalleryTitle);
 
 public sealed record InterfaceMessages(string ErrorTitle, string Error, string Reload, string Dismiss, string RequestId);
+
+public sealed record GalleryLabels(string Open, string Select, string Close, string Previous, string Next, string Counter);
