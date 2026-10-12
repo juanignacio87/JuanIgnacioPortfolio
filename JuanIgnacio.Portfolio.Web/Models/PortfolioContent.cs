@@ -32,6 +32,8 @@ public sealed record HeroContent(
 
 public sealed record InterestArea(string Title, string Description);
 
+public enum ProjectStage { Published, InDevelopment, Conceptual, Coursework }
+
 public sealed record ProjectItem(
     string Title,
     string Description,
@@ -44,7 +46,8 @@ public sealed record ProjectItem(
     string ImageUrl = "",
     string ImageAlt = "",
     string ProjectUrl = "",
-    string RepositoryUrl = "");
+    string RepositoryUrl = "",
+    ProjectStage Stage = ProjectStage.Conceptual);
 
 public sealed record ProjectLabels(
     string Problem,

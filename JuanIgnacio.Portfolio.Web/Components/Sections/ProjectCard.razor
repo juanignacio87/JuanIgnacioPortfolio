@@ -5,19 +5,25 @@
         <img class="project-image" src="@Project.ImageUrl" alt="@Project.ImageAlt" loading="lazy" />
     }
     <div class="project-card-heading">
-        <span class="project-symbol" aria-hidden="true"><Icon Name="@Symbol" /></span>
-        <span class="status">@Project.Status</span>
+        <h4>@Project.Title</h4>
+        <span class="status @StatusClass">@Project.Status</span>
     </div>
-    <h4>@Project.Title</h4>
     <p>@Project.Description</p>
-    <TechBadges Technologies="Project.Technologies" />
     <details>
-        <summary>@Project.MoreLabel <Icon Name="arrow-up-right" /></summary>
-        <dl>
-            <dt>@Labels.Problem</dt><dd>@Project.Problem</dd>
-            <dt>@Labels.Role</dt><dd>@Project.Role</dd>
-            <dt>@Labels.NextStep</dt><dd>@Project.NextStep</dd>
-        </dl>
+        <summary role="button" aria-expanded="false" aria-controls="@detailsId" aria-label="@($"{Project.MoreLabel}: {Project.Title}")">
+            @Project.MoreLabel <Icon Name="chevron-down" />
+        </summary>
+        <div id="@detailsId">
+            <div class="project-technical-detail">
+                <h5>@Labels.Technologies</h5>
+                <TechBadges Technologies="Project.Technologies" />
+            </div>
+            <dl>
+                <dt>@Labels.Problem</dt><dd>@Project.Problem</dd>
+                <dt>@Labels.Role</dt><dd>@Project.Role</dd>
+                <dt>@Labels.NextStep</dt><dd>@Project.NextStep</dd>
+            </dl>
+        </div>
     </details>
     @if (!string.IsNullOrWhiteSpace(Project.ProjectUrl))
     {
@@ -29,8 +35,16 @@
     }
 </article>
 @code {
+    // Native details/summary exposes the expanded state and keyboard behaviour.
+    private readonly string detailsId = $"project-details-{Guid.NewGuid():N}";
     [Parameter, EditorRequired] public ProjectItem Project { get; set; } = default!;
     [Parameter, EditorRequired] public ProjectLabels Labels { get; set; } = default!;
     [Parameter] public int Index { get; set; }
-    private string Symbol => Index switch { 1 => "trophy", 2 => "radio", 3 => "layers", _ => "scan-eye" };
+    private string StatusClass => Project.Stage switch
+    {
+        ProjectStage.Published => "published",
+        ProjectStage.InDevelopment => "development",
+        ProjectStage.Coursework => "coursework",
+        _ => "conceptual"
+    };
 }

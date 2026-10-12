@@ -1,7 +1,26 @@
 @using JuanIgnacio.Portfolio.Web.Models
 <section id="about" class="content-section section-shell profile-section" aria-labelledby="profile-title">
-    <div class="section-heading"><p class="section-kicker">01 / @Content.Visual.ProfileIntro</p><h2 id="profile-title">@Content.AboutTitle</h2></div>
-    <div class="profile-copy"><p class="lead-text">@Content.AboutText</p><div class="profile-goal"><h3>@Content.ProfessionalGoal.Title</h3><p>@Content.ProfessionalGoal.Text</p></div></div>
-    <div class="profile-facts">@foreach(var item in Content.Hero.Highlights){<span><Icon Name="arrow-up-right" />@item</span>}<span><Icon Name="globe" />@Content.Visual.FooterNote</span></div>
+    <div class="profile-intro">
+        <div class="section-heading">
+            <p class="section-kicker">01 / @Content.Visual.ProfileIntro</p>
+            <h2 id="profile-title">@Content.AboutTitle</h2>
+        </div>
+        <div class="profile-facts">
+            @foreach (var item in Content.Hero.Highlights)
+            {
+                <span><Icon Name="arrow-up-right" />@item</span>
+            }
+            <span><Icon Name="globe" />@Content.Visual.FooterNote</span>
+        </div>
+    </div>
+    <div class="profile-copy">
+        <p class="lead-text">@Content.AboutText</p>
+        <div class="profile-goal">
+            <h3>@Content.ProfessionalGoal.Title</h3>
+            <p>@Content.ProfessionalGoal.Text</p>
+        </div>
+    </div>
 </section>
-@code { [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!; }
+@code {
+    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
+}

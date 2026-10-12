@@ -8,3 +8,11 @@ window.portfolioLanguage = {
         try { localStorage.setItem('portfolio.language', language); } catch { /* Private browsing. */ }
     }
 };
+
+// Keep explicit ARIA state in sync with native mouse and keyboard toggles.
+document.addEventListener('toggle', event => {
+    const details = event.target;
+    if (details instanceof HTMLDetailsElement && details.matches('.project-card details')) {
+        details.querySelector('summary').setAttribute('aria-expanded', String(details.open));
+    }
+}, true);

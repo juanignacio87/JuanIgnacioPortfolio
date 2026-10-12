@@ -1,6 +1,16 @@
 @using JuanIgnacio.Portfolio.Web.Models
 <section id="experience" class="content-section section-shell experience-section" aria-labelledby="experience-title">
-    <div class="section-heading"><p class="section-kicker">03 / @Content.Nav.Experience</p><h2 id="experience-title">@Content.ExperienceTitle</h2></div>
-    <ol class="timeline">@foreach(var item in Content.Experience){<li><h3>@item.Title</h3><p>@item.Detail</p></li>}</ol>
+    <div class="section-heading">
+        <p class="section-kicker">03 / @Content.Nav.Experience</p>
+        <h2 id="experience-title">@Content.ExperienceTitle</h2>
+    </div>
+    <ol class="timeline">
+        @foreach (var item in Content.Experience)
+        {
+            <li><h3>@item.Title</h3><p>@item.Detail</p></li>
+        }
+    </ol>
 </section>
-@code { [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!; }
+@code {
+    [Parameter, EditorRequired] public PortfolioContent Content { get; set; } = default!;
+}

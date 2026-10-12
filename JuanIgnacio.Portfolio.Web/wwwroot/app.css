@@ -10,7 +10,7 @@
   --accent:#7ac943;
   --paper:#f4f6ef;
   --ink:#17211c;
-  --muted:#526258;
+  --muted:#435349;
   --line:#d7ded5;
   --earth:#c58a4a;
   --white:#fff;
@@ -337,7 +337,7 @@ ul,ol {
 .content-section {
   padding-block:90px}
 .section-kicker {
-  font-size:10px;
+  font-size:12px;
   color:var(--green);
   font-weight:750;
   margin-bottom:20px;
@@ -347,48 +347,50 @@ ul,ol {
   font-weight:650;
   max-width:600px}
 .section-heading>p:last-child:not(.section-kicker) {
-  font-size:14px;
+  font-size:15px;
   margin-top:17px;
   max-width:600px}
 .profile-section {
+  padding-block:64px;
   display:grid;
-  grid-template-columns:1fr 1.35fr;
-  gap:35px 80px}
+  grid-template-columns:1fr 1.4fr;
+  gap:56px}
 .profile-section h2 {
   font-size:40px;
   max-width:290px}
 .lead-text {
-  font-size:16px;
-  line-height:1.85}
+  font-size:17px;
+  line-height:1.75}
 .profile-goal {
-  margin-top:30px;
-  padding-top:24px;
+  margin-top:24px;
+  padding-top:20px;
   border-top:1px solid var(--line)}
 .profile-goal h3 {
-  font-size:14px;
+  font-size:16px;
   font-weight:700;
   margin-bottom:10px}
 .profile-goal p {
-  font-size:13px;
-  line-height:1.85}
+  font-size:15px;
+  line-height:1.75}
 .profile-facts {
-  grid-column:1/-1;
   display:flex;
-  gap:24px;
-  padding-top:30px;
+  flex-wrap:wrap;
+  gap:16px 22px;
+  margin-top:28px;
+  padding-top:20px;
   border-top:1px solid var(--line);
   align-items:center}
 .profile-facts>span {
   display:flex;
   gap:10px;
   align-items:center;
-  font-size:12px;
+  font-size:13px;
   color:var(--green)}
 .profile-facts>span:last-child {
-  margin-left:auto;
-  max-width:290px;
+  flex-basis:100%;
+  max-width:340px;
   color:var(--muted);
-  font-size:11px}
+  font-size:13px}
 .profile-facts .icon {
   color:#598833;
   width:16px}
@@ -418,13 +420,40 @@ ul,ol {
   color:#588c30}
 .status {
   display:inline-flex;
-  font-size:9px;
-  padding:5px 9px;
+  align-items:center;
+  gap:7px;
+  font-size:11px;
+  font-weight:650;
+  padding:6px 10px;
   border-radius:3px;
   color:#405443;
   border:1px solid #d4decf;
   background:#f1f5ed;
   white-space:normal}
+.status.published {
+  background:var(--green);
+  border-color:var(--green);
+  color:white}
+.status.published::before,.status.development::before {
+  content:'';
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  flex-shrink:0;
+  background:var(--accent)}
+.status.development {
+  background:var(--paper);
+  border-color:var(--earth);
+  color:var(--green)}
+.status.development::before {
+  background:var(--earth)}
+.status.conceptual {
+  border-style:dashed;
+  background:transparent;
+  color:var(--muted)}
+.status.coursework {
+  background:var(--paper);
+  color:var(--green)}
 .status.functional {
   background:#e0efcf;
   border-color:#c7dcb5;
@@ -437,22 +466,22 @@ ul,ol {
   max-width:390px}
 .featured-summary>p:not(.section-kicker):not(.featured-intro) {
   margin-top:15px;
-  font-size:13px}
+  font-size:15px}
 .tech-list {
   display:flex;
   gap:7px;
   flex-wrap:wrap;
   margin-top:22px}
 .tech-list li {
-  padding:4px 9px;
-  font-size:10px;
+  padding:5px 10px;
+  font-size:12px;
   border:1px solid #ced9c8;
   background:rgba(255,255,255,.7);
   color:#32513e;
   border-radius:3px}
 .featured-role {
   margin:24px 0;
-  font-size:12px}
+  font-size:14px}
 .featured-role dt {
   font-weight:700;
   color:var(--green);
@@ -469,7 +498,7 @@ ul,ol {
 .featured-features li {
   display:flex;
   gap:13px;
-  font-size:13px;
+  font-size:14px;
   line-height:1.6}
 .featured-features .icon {
   color:var(--green);
@@ -480,12 +509,12 @@ ul,ol {
   margin-top:25px;
   padding-top:20px}
 .next-step>span {
-  font-size:10px;
+  font-size:12px;
   font-weight:750;
   text-transform:uppercase;
   color:var(--green)}
 .next-step p {
-  font-size:12px;
+  font-size:14px;
   margin-top:6px}
 .project-gallery {
   grid-column:1/-1;
@@ -493,14 +522,14 @@ ul,ol {
   padding:24px 40px;
   border-top:1px solid #cbd8c9}
 .project-gallery h4 {
-  font-size:13px}
+  font-size:15px}
 .gallery-pending {
   display:flex;
   align-items:center;
   gap:12px;
   padding:16px 0 0}
 .gallery-pending p {
-  font-size:11px}
+  font-size:13px}
 .gallery-pending .icon {
   color:#71836a}
 .gallery-grid {
@@ -517,7 +546,7 @@ ul,ol {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  font-size:11px;
+  font-size:13px;
   margin-top:10px}
 .other-title {
   font-size:20px;
@@ -525,7 +554,7 @@ ul,ol {
   font-weight:600}
 .project-grid {
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:20px}
 .project-card {
   padding:24px;
@@ -540,11 +569,11 @@ ul,ol {
   box-shadow:0 5px 20px #174f3a09}
 .project-card-heading {
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:space-between;
-  gap:8px;
-  margin-bottom:23px;
-  min-height:36px}
+  flex-wrap:wrap;
+  gap:12px 20px;
+  margin-bottom:14px}
 .project-symbol {
   display:flex;
   align-items:center;
@@ -556,41 +585,47 @@ ul,ol {
   flex-shrink:0;
   border-radius:4px}
 .project-card h4 {
-  font-size:17px;
+  flex:1;
+  min-width:180px;
+  font-size:20px;
   font-weight:650;
-  min-height:40px;
+  line-height:1.35;
   overflow-wrap:anywhere}
 .project-card>p {
-  font-size:12px;
-  margin-top:14px;
-  line-height:1.8;
+  font-size:14px;
+  line-height:1.75;
   flex:1}
 .project-card .tech-list {
-  margin:18px 0 23px;
-  min-height:50px;
+  margin:10px 0 18px;
   align-content:flex-start}
 .project-card .tech-list li {
-  font-size:9px;
-  padding:3px 6px}
+  font-size:12px;
+  padding:5px 9px}
+.project-technical-detail h5 {
+  font-size:13px;
+  color:var(--green);
+  margin:18px 0 0}
 .project-card details {
   border-top:1px solid var(--line);
-  padding-top:15px;
-  font-size:11px}
+  margin-top:20px;
+  padding-top:10px;
+  font-size:14px}
 .project-card summary {
+  width:100%;
   cursor:pointer;
   display:flex;
   justify-content:space-between;
   align-items:center;
   color:var(--green);
   font-weight:650;
-  min-height:30px;
+  min-height:44px;
   list-style:none}
 .project-card summary::-webkit-details-marker {
   display:none}
 .project-card details[open] summary .icon {
-  transform:rotate(90deg)}
+  transform:rotate(180deg)}
 .project-card dl {
-  font-size:11px}
+  font-size:14px}
 .project-card dt {
   font-weight:700;
   margin-top:15px;
@@ -604,7 +639,7 @@ ul,ol {
   object-fit:contain;
   margin-bottom:20px}
 .text-link {
-  font-size:11px;
+  font-size:13px;
   color:var(--green);
   margin-top:15px;
   display:flex;
@@ -612,23 +647,24 @@ ul,ol {
   justify-content:space-between}
 
 .experience-section {
-  display:grid;
-  grid-template-columns:1fr 1.35fr;
-  gap:80px}
+  padding-block:64px}
 .experience-section h2 {
-  max-width:350px}
+  max-width:650px}
 .timeline {
-  padding-left:26px;
-  border-left:1px solid #b5c9ac}
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:28px 56px;
+  margin-top:32px}
 .timeline li {
   position:relative;
-  padding-bottom:28px}
+  border-left:1px solid #b5c9ac;
+  padding-left:24px}
 .timeline li:last-child {
   padding-bottom:0}
 .timeline li::before {
   content:'';
   position:absolute;
-  left:-31px;
+  left:-5px;
   top:5px;
   width:9px;
   height:9px;
@@ -638,36 +674,45 @@ ul,ol {
 .timeline li:last-child::before {
   background:var(--accent)}
 .timeline h3 {
-  font-size:15px;
+  font-size:17px;
   font-weight:650}
 .timeline p {
-  font-size:12px;
+  font-size:15px;
   margin-top:8px;
   max-width:520px}
 .technology-band {
+  padding-block:64px;
   background:#e7ede2}
 .skills-grid {
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:36px;
-  margin-top:40px}
+  gap:28px;
+  margin-top:32px}
 .skill-group {
-  border-top:1px solid #b6c6ae;
-  padding-top:20px}
+  border-top:3px solid var(--green);
+  padding-top:18px}
 .skill-group h3 {
-  font-size:13px;
-  font-weight:650}
+  font-size:17px;
+  line-height:1.4;
+  font-weight:700;
+  color:var(--green)}
 .skill-group .tech-list {
-  margin-top:18px}
+  margin-top:16px;
+  gap:8px}
+.skill-group .tech-list li {
+  font-size:14px;
+  padding:7px 11px;
+  background:var(--paper);
+  font-weight:550}
 .languages-row {
-  margin-top:45px;
+  margin-top:28px;
   border-top:1px solid #c4d0bd;
-  padding-top:25px;
+  padding-top:22px;
   display:flex;
   gap:50px;
   align-items:center}
 .languages-row h3 {
-  font-size:13px;
+  font-size:15px;
   flex-shrink:0}
 .languages-row ul {
   display:flex;
@@ -676,7 +721,7 @@ ul,ol {
   flex:1;
   flex-wrap:wrap}
 .languages-row li {
-  font-size:12px;
+  font-size:14px;
   color:#435440}
 
 .contact-band {
@@ -700,7 +745,7 @@ ul,ol {
   display:flex;
   align-items:center;
   gap:10px;
-  font-size:11px;
+  font-size:13px;
   margin-top:26px}
 .availability-dot {
   width:6px;
@@ -713,7 +758,7 @@ ul,ol {
   background:transparent;
   border-color:#537663;
   color:#e1eddc;
-  font-size:9px}
+  font-size:12px}
 .contact-directory {
   align-self:center}
 .contact-directory>.professional-link {
@@ -732,7 +777,7 @@ ul,ol {
   scroll-margin-top:110px}
 .contact-cv>small {
   color:#d1e3c9;
-  font-size:10px}
+  font-size:12px}
 .contact-cv .button {
   background:#eff5e9;
   color:var(--green);
@@ -747,7 +792,7 @@ ul,ol {
   align-items:center;
   gap:20px}
 .site-footer p,.site-footer a {
-  font-size:10px;
+  font-size:12px;
   color:#c2d4c1}
 .site-footer a {
   white-space:nowrap}
@@ -867,6 +912,12 @@ ul,ol {
 .profile-section,.experience-section {
   grid-template-columns:1fr;
   gap:28px}
+.profile-section,.experience-section,.technology-band {
+  padding-block:52px}
+.timeline {
+  grid-template-columns:1fr;
+  gap:24px;
+  margin-top:28px}
 .profile-section h2 {
   max-width:none;
   font-size:36px}
@@ -984,12 +1035,12 @@ ul,ol {
 .content-section {
   padding-block:50px}
 .lead-text {
-  font-size:14px}
+  font-size:15px}
 .profile-facts {
   gap:12px 25px;
   padding-top:22px}
 .section-kicker {
-  font-size:9px;
+  font-size:10px;
   margin-bottom:15px}
 .featured-project {
   margin-top:27px}
@@ -1002,7 +1053,7 @@ ul,ol {
 .featured-features ul {
   gap:17px}
 .featured-features li {
-  font-size:12px}
+  font-size:14px}
 .project-gallery {
   padding:22px 24px}
 .gallery-pending {
@@ -1020,13 +1071,18 @@ ul,ol {
 .project-card .tech-list {
   min-height:0}
 .project-card h4 {
-  font-size:18px}
+  font-size:19px}
 .project-card-heading {
-  margin-bottom:18px}
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:14px}
 .skills-grid {
   gap:28px 18px}
 .skill-group h3 {
-  font-size:12px}
+  font-size:15px}
+.skill-group .tech-list li {
+  font-size:13px;
+  padding:6px 9px}
 .languages-row {
   flex-direction:column;
   gap:18px}
@@ -1034,16 +1090,16 @@ ul,ol {
   width:100%;
   gap:14px}
 .languages-row li {
-  font-size:11px}
+  font-size:13px}
 .contact-band h2 {
   font-size:32px}
 .contact-band .lead-text {
   font-size:13px}
 .site-footer p {
   max-width:270px;
-  font-size:9px}
+  font-size:11px}
 .site-footer a {
-  font-size:9px}
+  font-size:11px}
 .main-nav {
   grid-template-columns:repeat(2,1fr)}
 }

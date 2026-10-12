@@ -12,7 +12,13 @@
                 <a class="button primary" href="#projects">@Content.Hero.Ctas.Projects <Icon Name="arrow-up-right" /></a>
                 <CvLink Content="Content" SiteOptions="SiteOptions" />
             </div>
-            <div class="hero-social"><ProfessionalLink Label="GitHub" Url="@SiteOptions.GitHubUrl" Pending="@Content.Visual.Pending" /><ProfessionalLink Label="LinkedIn" Url="@SiteOptions.LinkedInUrl" Pending="@Content.Visual.Pending" /></div>
+            @if (!string.IsNullOrWhiteSpace(SiteOptions.GitHubUrl) || !string.IsNullOrWhiteSpace(SiteOptions.LinkedInUrl))
+            {
+                <div class="hero-social">
+                    <ProfessionalLink Label="GitHub" Url="@SiteOptions.GitHubUrl" />
+                    <ProfessionalLink Label="LinkedIn" Url="@SiteOptions.LinkedInUrl" />
+                </div>
+            }
         </div>
         <div class="field-caption"><span class="crosshair" aria-hidden="true">+</span><div><span>@Content.Visual.FieldLabel</span><strong>@Content.Visual.FieldData</strong></div><span class="field-index">01 / AGRO 4.0</span></div>
     </div>
