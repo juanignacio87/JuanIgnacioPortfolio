@@ -1,0 +1,87 @@
+name: juanignacio-portfolio-zima
+
+services:
+  portfolio-web:
+    image: "juanignacio-portfolio:${PORTFOLIO_IMAGE_TAG:?Set a unique release tag}"
+    build:
+      context: .
+      dockerfile: JuanIgnacio.Portfolio.Web/Dockerfile
+    restart: unless-stopped
+    user: "1654:1654"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 256
+    mem_limit: 512m
+    cpus: 1.0
+    expose: ["8080"]
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=64m,uid=1654,gid=1654,mode=1700
+    dns: ["127.0.0.1"]
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: "http://+:8080"
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: "false"
+      DOTNET_EnableDiagnostics: "0"
+      Hosting__EphemeralDataProtection: "true"
+      ReverseProxy__KnownProxy: "${PORTFOLIO_PROXY_IP:-172.30.253.3}"
+      AllowedHosts: "${PORTFOLIO_HOSTNAME:?Set the public hostname};localhost"
+      Portfolio__PublicUrl: "${PORTFOLIO_PUBLIC_URL:?Set the public HTTPS URL}"
+      Portfolio__ContactFormMode: mailto
+    healthcheck:
+      test:
+        - CMD
+        - bash
+        - -ec
+        - >-
+          exec 3<>/dev/tcp/127.0.0.1/8080;
+          printf 'GET /health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n' >&3;
+          read -r status <&3;
+          [[ "$$status" == *" 200 "* ]]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    networks:
+      portfolio-internal:
+        ipv4_address: "${PORTFOLIO_APP_IP:-172.30.253.2}"
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+  cloudflared:
+    image: "cloudflare/cloudflared:2026.10.0"
+    restart: unless-stopped
+    user: "65532:65532"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 128
+    mem_limit: 256m
+    cpus: 0.5
+    command: ["tunnel", "--metrics", "127.0.0.1:2000", "run", "--token-file", "/run/secrets/cloudflared_token"]
+    depends_on:
+      portfolio-web:
+        condition: service_healthy
+    secrets: [cloudflared_token]
+    networks:
+      portfolio-internal:
+        ipv4_address: "${PORTFOLIO_PROXY_IP:-172.30.253.3}"
+      tunnel-egress: {}
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+networks:
+  portfolio-internal:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: "${PORTFOLIO_INTERNAL_SUBNET:-172.30.253.0/29}"
+  tunnel-egress:
+    driver: bridge
+
+secrets:
+  cloudflared_token:
+    file: ./secrets/cloudflared-token

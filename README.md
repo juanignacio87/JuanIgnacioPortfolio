@@ -1,5 +1,11 @@
 # Juan Ignacio Portfolio
 
+## ZimaBoard / ZimaOS con Cloudflare Tunnel
+
+Usar exclusivamente `docker-compose.zimaboard.yml`, sin combinarlo con el Compose
+general que publica puertos. Ver [despliegue seguro en ZimaBoard](DEPLOY-ZIMABOARD.md)
+para secretos locales, aislamiento, comprobaciones, actualizacion, rollback e incidentes.
+
 ## Propuesta visual Campo tecnologico
 
 Ver [guia del rediseño](REDESIGN-NOTES.md) para contenido, capturas reales,
@@ -8,7 +14,7 @@ directos, no el formulario de demostracion descrito en la documentacion historic
 Los contactos publicos estan configurados. El CV sigue pendiente por idioma hasta incorporar los PDF finales.
 La imagen social por defecto ahora es `images/social-preview.png` (fuente SVG v2).
 
-Landing personal desarrollada con Blazor Server en .NET 8.
+Landing personal desarrollada con Blazor Server en .NET 10 LTS.
 
 ## Ejecutar en local
 

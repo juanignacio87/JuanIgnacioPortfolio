@@ -12,6 +12,11 @@ DockerDesktop.vhdx
 .env.*
 !.env.example
 !.env.production.example
+!.env.zimaboard.example
+secrets/
+.secrets/
+cloudflared-token*
+*.token
 appsettings.Local.json
 appsettings.*.Local.json
 artifacts/
